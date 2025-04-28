@@ -1,0 +1,181 @@
+# MCP Server Relevance Configuration
+
+title: "MCP Server Relevance"
+description: "Guidelines for determining relevant MCP servers for subtasks in orchestrator mode"
+
+mcp_server_relevance:
+  description: "Rules and guidelines for identifying relevant MCP servers for subtasks"
+  
+  dynamic_analysis:
+    description: "The Orchestrator mode should dynamically analyze available MCP servers in its current context"
+    key_points:
+      - "These guidelines apply to whatever MCP servers are available in the system prompt"
+      - "The Orchestrator mode should not rely on a fixed list of servers"
+      - "New servers added to the context should automatically be considered for relevance"
+      - "Removed servers should no longer be considered for task delegations"
+      - "The analysis process is designed to work with any set of MCP servers"
+  
+  analysis_process:
+    steps:
+      - name: "Extract Key Concepts"
+        description: "Identify the main technologies, domains, and tasks mentioned in the subtask"
+        examples:
+          - "For a task about 'implementing GitHub authentication', key concepts include: GitHub, authentication, OAuth, repositories"
+          - "For a task about 'querying a MySQL database', key concepts include: MySQL, database, SQL, queries"
+          - "For a task about 'AWS infrastructure', key concepts include: AWS, cloud, infrastructure, services"
+      
+      - name: "Match Against MCP Servers"
+        description: "Compare extracted concepts against MCP server descriptions, tools, and resources"
+        technique: "Look for semantic matches between concepts and MCP server capabilities"
+        examples:
+          - "GitHub-related tasks match with the github MCP server"
+          - "Web search tasks match with the brave-search MCP server"
+          - "AWS-related tasks match with various AWS MCP servers (awslabs-core, awslabs-cdk, etc.)"
+      
+      - name: "Assess Relevance"
+        description: "Determine how relevant each MCP server is to the subtask"
+        factors:
+          - "Direct mention of the MCP server or its tools in the subtask"
+          - "Semantic relationship between subtask domain and MCP server capabilities"
+          - "Utility of the MCP server's tools for accomplishing the subtask"
+          - "Previous successful use of the MCP server for similar tasks"
+      
+      - name: "Prioritize Results"
+        description: "Select the most relevant MCP servers to include in the task delegation"
+        guidelines:
+          - "Include 2-4 most relevant MCP servers, not an exhaustive list"
+          - "Prioritize servers with direct tool relevance over general information servers"
+          - "Consider the target mode's typical needs and workflows"
+          - "Balance specificity with breadth of capabilities"
+
+  example_note: "IMPORTANT: The server examples below are for illustration only. The Orchestrator mode should analyze the actual servers available in its context, not rely on this list."
+  
+  example_domains:
+    version_control:
+      name: "Version Control and Code Management"
+      example_servers: ["github"]
+      relevant_for:
+        - "Repository management"
+        - "Code changes and commits"
+        - "Pull requests and issues"
+        - "GitHub-specific integrations"
+    
+    web_search:
+      name: "Web Search and Information Retrieval"
+      example_servers: ["fetch", "brave-search"]
+      relevant_for:
+        - "Research tasks"
+        - "Finding documentation or examples"
+        - "Gathering information from websites"
+        - "Local business or location searches"
+    
+    knowledge_management:
+      name: "Knowledge Management"
+      example_servers: ["tribal"]
+      relevant_for:
+        - "Error tracking and resolution"
+        - "Finding similar past issues"
+        - "Knowledge base management"
+        - "Solution documentation"
+    
+    project_management:
+      name: "Project Management"
+      example_servers: ["jira-server", "practices"]
+      relevant_for:
+        - "Issue tracking and management"
+        - "Project workflow and processes"
+        - "Release management"
+        - "Git workflow best practices"
+    
+    aws_services:
+      name: "AWS Cloud Services"
+      example_servers: ["awslabs-core-mcp-server", "awslabs-cdk-mcp-server", "awslabs-cost-analysis-mcp-server"]
+      relevant_for:
+        - "AWS infrastructure and services"
+        - "CDK development"
+        - "AWS cost analysis and optimization"
+        - "AWS documentation and diagrams"
+    
+    frontend_development:
+      name: "Frontend Development"
+      example_servers: ["unirt.amplify-doc-mcp-server"]
+      relevant_for:
+        - "AWS Amplify development"
+        - "Frontend web applications"
+        - "Mobile application development"
+        - "Authentication and API integration"
+    
+    database_management:
+      name: "Database Management"
+      example_servers: ["mysql-mcp-server"]
+      relevant_for:
+        - "Database queries and operations"
+        - "SQL execution"
+        - "Data management and analysis"
+        - "Database schema work"
+    
+    package_management:
+      name: "Package Management"
+      example_servers: ["ts-pkg-distro"]
+      relevant_for:
+        - "TypeScript package setup"
+        - "NPM package distribution"
+        - "JavaScript/TypeScript development"
+        - "Package configuration"
+
+  inclusion_format:
+    description: "Format for including relevant MCP servers in task delegation messages"
+    template: |
+      ## Relevant MCP Servers
+      
+      The following MCP servers may be helpful for this task:
+      
+      - **[Server Name]**: [Brief explanation of relevance, mentioning specific tools or capabilities]
+      - **[Server Name]**: [Brief explanation of relevance, mentioning specific tools or capabilities]
+      
+      Consider using these servers' tools and resources to accomplish the task more effectively.
+    
+    example_github_integration: |
+      ## Relevant MCP Servers
+      
+      The following MCP servers may be helpful for this task:
+      
+      - **github**: Provides direct GitHub repository interaction with tools like create_repository, push_files, and create_pull_request
+      - **tribal**: Useful for tracking any errors encountered during implementation and finding solutions
+      
+      Consider using these servers' tools and resources to accomplish the task more effectively.
+    
+    example_aws_amplify: |
+      ## Relevant MCP Servers
+      
+      The following MCP servers may be helpful for this task:
+      
+      - **unirt.amplify-doc-mcp-server**: Access AWS Amplify documentation with search_amplify_documentation and read_amplify_documentation tools
+      - **awslabs.aws-documentation-mcp-server**: Find general AWS documentation related to Cognito and other services
+      - **tribal**: Track implementation errors and solutions in the knowledge base
+      
+      Consider using these servers' tools and resources to accomplish the task more effectively.
+    
+    example_database_query: |
+      ## Relevant MCP Servers
+      
+      The following MCP servers may be helpful for this task:
+      
+      - **mysql-mcp-server**: Execute SQL queries directly with the execute_sql tool
+      - **fetch**: Retrieve documentation or examples for complex query patterns
+      - **tribal**: Document and find solutions for database-related errors
+      
+      Consider using these servers' tools and resources to accomplish the task more effectively.
+
+  best_practices:
+    - "Always analyze the full context of the subtask, not just keywords"
+    - "Consider both explicit mentions and implicit needs when identifying relevant servers"
+    - "Provide specific reasons why each server is relevant to the particular subtask"
+    - "Mention specific tools or resources that will be most helpful"
+    - "Tailor recommendations to the target mode's typical workflows"
+    - "Balance between providing enough options and overwhelming with too many choices"
+    - "When in doubt about relevance, err on the side of inclusion for potentially useful servers"
+    - "Update your understanding of MCP server capabilities as they evolve over time"
+    - "Dynamically adapt to whatever MCP servers are available in the current context"
+    - "Don't assume specific servers will be available - check what's in the system prompt"
+    - "Consider the capabilities of each available server based on its description and tools"

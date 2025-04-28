@@ -36,3 +36,18 @@ This file records architectural and implementation decisions using a list format
  3. Created a NOTICE file to acknowledge the upstream project
  4. Updated package.json to specify the "Apache-2.0" license
  5. Updated README.md to reflect the license change
+
+* [2025-04-28 16:37:00] - Enhanced orchestrator mode task delegation with MCP server relevance determination capabilities.
+
+## Rationale
+
+* [2025-04-28 16:37:15] - The orchestrator mode needs to provide delegated modes with information about relevant MCP servers for their specific subtasks. This helps the receiving mode understand which external tools and resources are available for its task, improving efficiency and effectiveness.
+
+## Implementation Details
+
+* [2025-04-28 16:38:30] - Implemented a dynamic approach for MCP server relevance determination:
+  1. Created mcp-server-relevance.roo.yaml with guidelines for analyzing subtasks and identifying relevant MCP servers
+  2. Designed the system to work with whatever MCP servers are available in the orchestrator mode's system prompt
+  3. Provided a structured analysis process: extract key concepts, match against available servers, assess relevance, prioritize results
+  4. Added the file to the orchestrator mode's context in mode-rule-context.yaml
+  5. Included example server categories and task types for illustration, while emphasizing dynamic analysis of actual available servers

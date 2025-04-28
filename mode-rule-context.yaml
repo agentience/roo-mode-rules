@@ -24,5 +24,6 @@ modes:
     context:
       - .roo/context/jira-management.roo.yaml
       - .roo/context/mode-capabilities.roo.yaml
+      - .roo/context/mcp-server-relevance.roo.yaml
       - .roo/context/task-delegation-patterns.roo.yaml
       - .roo/context/workflow-orchestration.roo.yaml
