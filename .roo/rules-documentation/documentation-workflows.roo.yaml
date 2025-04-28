@@ -1,0 +1,499 @@
+# Documentation Workflows Configuration
+
+title: "Documentation Workflows"
+description: "Processes and workflows for creating, updating, and managing different types of documentation"
+
+documentation_creation_workflows:
+  description: "Workflows for creating new documentation"
+  
+  project_documentation:
+    steps:
+      - name: "Needs Assessment"
+        description: "Identify what documentation is needed for the project"
+        tasks:
+          - "Identify target audience(s)"
+          - "Determine required documentation types (README, user guides, API docs, etc.)"
+          - "Establish documentation priorities"
+          - "Define success criteria for documentation"
+      
+      - name: "Documentation Planning"
+        description: "Plan the structure and content of documentation"
+        tasks:
+          - "Create documentation outline"
+          - "Define document hierarchy and organization"
+          - "Identify required diagrams or visual aids"
+          - "Establish timeline for documentation completion"
+      
+      - name: "Content Creation"
+        description: "Write the documentation content"
+        tasks:
+          - "Follow documentation standards for formatting and style"
+          - "Include code examples where appropriate"
+          - "Create diagrams and visual aids"
+          - "Ensure technical accuracy"
+      
+      - name: "Review and Refinement"
+        description: "Review and improve documentation"
+        tasks:
+          - "Conduct technical review for accuracy"
+          - "Perform readability and clarity review"
+          - "Check for adherence to documentation standards"
+          - "Verify all links and references"
+      
+      - name: "Publication"
+        description: "Publish and distribute documentation"
+        tasks:
+          - "Add documentation to appropriate repository"
+          - "Update documentation index or navigation"
+          - "Announce documentation availability to stakeholders"
+          - "Gather initial feedback"
+  
+  api_documentation:
+    steps:
+      - name: "API Analysis"
+        description: "Analyze the API to be documented"
+        tasks:
+          - "Identify all endpoints and operations"
+          - "Determine authentication and authorization requirements"
+          - "Identify request and response formats"
+          - "Note any rate limiting or usage constraints"
+      
+      - name: "Documentation Structure"
+        description: "Define the structure of the API documentation"
+        tasks:
+          - "Create overview section explaining API purpose"
+          - "Organize endpoints by resource or functionality"
+          - "Plan authentication documentation"
+          - "Define common patterns and conventions"
+      
+      - name: "Endpoint Documentation"
+        description: "Document each API endpoint"
+        tasks:
+          - "Document endpoint URL and HTTP method"
+          - "List and describe all parameters"
+          - "Document request body format with examples"
+          - "Document response format with examples"
+          - "Document possible error responses"
+      
+      - name: "Code Examples"
+        description: "Create code examples for API usage"
+        tasks:
+          - "Provide examples in relevant programming languages"
+          - "Include authentication examples"
+          - "Show common use cases"
+          - "Include error handling examples"
+      
+      - name: "Testing and Validation"
+        description: "Test and validate the API documentation"
+        tasks:
+          - "Verify all endpoints work as documented"
+          - "Test code examples"
+          - "Validate OpenAPI/Swagger specification if used"
+          - "Review for technical accuracy"
+  
+  user_guide_creation:
+    steps:
+      - name: "User Analysis"
+        description: "Analyze the target users and their needs"
+        tasks:
+          - "Identify user roles and personas"
+          - "Determine user technical expertise level"
+          - "Identify common user tasks and workflows"
+          - "Understand user pain points and questions"
+      
+      - name: "Content Planning"
+        description: "Plan the user guide content"
+        tasks:
+          - "Create outline with logical progression"
+          - "Define required screenshots or illustrations"
+          - "Plan step-by-step instructions for common tasks"
+          - "Identify FAQs to include"
+      
+      - name: "Content Creation"
+        description: "Create the user guide content"
+        tasks:
+          - "Write clear, concise instructions"
+          - "Create screenshots with annotations"
+          - "Use consistent terminology"
+          - "Include troubleshooting information"
+      
+      - name: "User Testing"
+        description: "Test the guide with representative users"
+        tasks:
+          - "Have users follow the guide to complete tasks"
+          - "Identify areas of confusion or difficulty"
+          - "Gather feedback on clarity and completeness"
+          - "Revise based on user feedback"
+      
+      - name: "Publication and Distribution"
+        description: "Publish and distribute the user guide"
+        tasks:
+          - "Format for appropriate delivery channels"
+          - "Ensure accessibility"
+          - "Announce availability to users"
+          - "Establish feedback mechanism"
+
+documentation_maintenance_workflows:
+  description: "Workflows for maintaining and updating existing documentation"
+  
+  regular_review_process:
+    frequency: "Quarterly or with major releases"
+    steps:
+      - name: "Documentation Inventory"
+        description: "Inventory all existing documentation"
+        tasks:
+          - "List all documentation assets"
+          - "Note last review/update date"
+          - "Identify documentation owners"
+          - "Prioritize documentation for review"
+      
+      - name: "Technical Accuracy Review"
+        description: "Review documentation for technical accuracy"
+        tasks:
+          - "Verify all procedures still work as documented"
+          - "Check for outdated information"
+          - "Verify API endpoints and parameters"
+          - "Test code examples"
+      
+      - name: "Usability Review"
+        description: "Review documentation for usability"
+        tasks:
+          - "Check for clarity and readability"
+          - "Verify logical organization"
+          - "Ensure consistent formatting and style"
+          - "Check for broken links or references"
+      
+      - name: "Gap Analysis"
+        description: "Identify documentation gaps"
+        tasks:
+          - "Identify new features without documentation"
+          - "Note frequently asked questions not covered in docs"
+          - "Check for missing examples or use cases"
+          - "Identify areas needing more detail"
+      
+      - name: "Update Plan"
+        description: "Create plan for documentation updates"
+        tasks:
+          - "Prioritize updates based on impact"
+          - "Assign responsibilities for updates"
+          - "Set timeline for completion"
+          - "Define review process for updates"
+  
+  documentation_update_process:
+    triggers:
+      - "New feature implementation"
+      - "API changes"
+      - "User interface changes"
+      - "Bug fixes affecting documented behavior"
+      - "User feedback indicating confusion or gaps"
+    
+    steps:
+      - name: "Change Assessment"
+        description: "Assess the impact of changes on documentation"
+        tasks:
+          - "Identify affected documentation"
+          - "Determine extent of required updates"
+          - "Assess if new documentation is needed"
+          - "Prioritize documentation updates"
+      
+      - name: "Documentation Update"
+        description: "Update the affected documentation"
+        tasks:
+          - "Make necessary changes following standards"
+          - "Update screenshots or diagrams if needed"
+          - "Update code examples"
+          - "Note changes in version history"
+      
+      - name: "Review and Validation"
+        description: "Review and validate the updated documentation"
+        tasks:
+          - "Technical review for accuracy"
+          - "Verify all procedures work as documented"
+          - "Check for consistency with other documentation"
+          - "Proofread for clarity and correctness"
+      
+      - name: "Publication"
+        description: "Publish the updated documentation"
+        tasks:
+          - "Update documentation in repository"
+          - "Update version information"
+          - "Communicate changes to relevant stakeholders"
+          - "Monitor for feedback on updates"
+
+documentation_integration_workflows:
+  description: "Workflows for integrating documentation with development processes"
+  
+  documentation_in_agile:
+    sprint_planning:
+      - "Include documentation tasks in sprint planning"
+      - "Estimate documentation effort for new features"
+      - "Assign documentation responsibilities"
+      - "Define documentation acceptance criteria"
+    
+    during_sprint:
+      - "Create documentation alongside code development"
+      - "Review documentation as part of code reviews"
+      - "Update documentation when code changes"
+      - "Track documentation progress in sprint board"
+    
+    sprint_review:
+      - "Include documentation in sprint demos"
+      - "Review documentation completeness"
+      - "Gather feedback on documentation"
+      - "Identify documentation debt"
+    
+    sprint_retrospective:
+      - "Evaluate documentation process effectiveness"
+      - "Identify documentation process improvements"
+      - "Address documentation challenges"
+      - "Celebrate documentation successes"
+  
+  documentation_in_code_reviews:
+    requirements:
+      - "Documentation updates required for code changes"
+      - "Code comments for complex logic"
+      - "README updates for new features or changes"
+      - "API documentation for new or changed endpoints"
+    
+    review_checklist:
+      - "Verify documentation accuracy"
+      - "Check for documentation completeness"
+      - "Ensure documentation follows standards"
+      - "Verify code comments are clear and helpful"
+    
+    approval_criteria:
+      - "Documentation meets quality standards"
+      - "All required documentation is included"
+      - "Documentation is clear and understandable"
+      - "Documentation is consistent with code changes"
+  
+  documentation_in_ci_cd:
+    automated_checks:
+      - "Lint documentation for formatting issues"
+      - "Check for broken links"
+      - "Verify documentation builds correctly"
+      - "Run spell check on documentation"
+    
+    documentation_generation:
+      - "Generate API documentation from code"
+      - "Build documentation site"
+      - "Create PDF versions if required"
+      - "Version documentation with code"
+    
+    deployment:
+      - "Deploy documentation with code"
+      - "Update documentation site"
+      - "Archive previous documentation versions"
+      - "Notify stakeholders of documentation updates"
+
+specialized_documentation_workflows:
+  description: "Workflows for specialized documentation tasks"
+  
+  architecture_documentation:
+    components:
+      - "System overview diagram"
+      - "Component interaction diagrams"
+      - "Data flow diagrams"
+      - "Deployment architecture"
+      - "Security architecture"
+    
+    creation_process:
+      - name: "Architecture Analysis"
+        description: "Analyze the system architecture"
+        tasks:
+          - "Identify system components"
+          - "Map component interactions"
+          - "Document data flows"
+          - "Identify integration points"
+      
+      - name: "Diagram Creation"
+        description: "Create architecture diagrams"
+        tasks:
+          - "Use consistent notation"
+          - "Create high-level overview diagram"
+          - "Create detailed component diagrams"
+          - "Document key decision points"
+      
+      - name: "Documentation Writing"
+        description: "Write architecture documentation"
+        tasks:
+          - "Explain architecture decisions"
+          - "Document constraints and assumptions"
+          - "Describe component responsibilities"
+          - "Document non-functional requirements"
+      
+      - name: "Review and Validation"
+        description: "Review and validate architecture documentation"
+        tasks:
+          - "Technical review by architects"
+          - "Verify accuracy and completeness"
+          - "Check for clarity and understandability"
+          - "Update based on feedback"
+  
+  troubleshooting_guide_creation:
+    components:
+      - "Common issues and solutions"
+      - "Diagnostic procedures"
+      - "Error message reference"
+      - "Escalation procedures"
+    
+    creation_process:
+      - name: "Issue Identification"
+        description: "Identify common issues and solutions"
+        tasks:
+          - "Analyze support tickets and user feedback"
+          - "Identify recurring issues"
+          - "Consult with support and development teams"
+          - "Prioritize issues by frequency and impact"
+      
+      - name: "Solution Documentation"
+        description: "Document solutions for each issue"
+        tasks:
+          - "Document step-by-step resolution procedures"
+          - "Include diagnostic steps"
+          - "Document expected outcomes"
+          - "Include screenshots or examples"
+      
+      - name: "Organization and Structure"
+        description: "Organize the troubleshooting guide"
+        tasks:
+          - "Group issues by category"
+          - "Create searchable index"
+          - "Include decision trees for complex issues"
+          - "Add cross-references between related issues"
+      
+      - name: "Validation and Testing"
+        description: "Validate the troubleshooting guide"
+        tasks:
+          - "Test procedures with support team"
+          - "Verify accuracy of solutions"
+          - "Check for clarity and usability"
+          - "Update based on feedback"
+  
+  release_notes_creation:
+    components:
+      - "New features"
+      - "Improvements"
+      - "Bug fixes"
+      - "Breaking changes"
+      - "Known issues"
+    
+    creation_process:
+      - name: "Change Collection"
+        description: "Collect changes for the release"
+        tasks:
+          - "Review completed tickets"
+          - "Consult with development team"
+          - "Identify breaking changes"
+          - "Note known issues"
+      
+      - name: "Organization and Categorization"
+        description: "Organize and categorize changes"
+        tasks:
+          - "Categorize changes (features, fixes, etc.)"
+          - "Prioritize changes by impact"
+          - "Group related changes"
+          - "Identify highlights for summary"
+      
+      - name: "Content Creation"
+        description: "Write release notes content"
+        tasks:
+          - "Write clear descriptions of changes"
+          - "Include version and release date"
+          - "Document upgrade instructions if needed"
+          - "Note deprecated features"
+      
+      - name: "Review and Publication"
+        description: "Review and publish release notes"
+        tasks:
+          - "Technical review for accuracy"
+          - "Review for clarity and completeness"
+          - "Format according to standards"
+          - "Publish and distribute to stakeholders"
+
+documentation_collaboration_workflows:
+  description: "Workflows for collaborative documentation efforts"
+  
+  collaborative_editing:
+    tools:
+      - "Git/GitHub for version control"
+      - "Pull requests for reviews"
+      - "Markdown editors with preview"
+      - "Collaborative platforms (e.g., Confluence)"
+    
+    process:
+      - name: "Planning"
+        description: "Plan the collaborative documentation effort"
+        tasks:
+          - "Define documentation scope and objectives"
+          - "Assign responsibilities"
+          - "Establish timeline"
+          - "Set up collaboration tools"
+      
+      - name: "Content Creation"
+        description: "Create content collaboratively"
+        tasks:
+          - "Break documentation into manageable sections"
+          - "Assign sections to team members"
+          - "Use branching for parallel work"
+          - "Regular check-ins on progress"
+      
+      - name: "Review and Integration"
+        description: "Review and integrate contributions"
+        tasks:
+          - "Peer review of contributions"
+          - "Address feedback"
+          - "Integrate sections into cohesive document"
+          - "Ensure consistent style and terminology"
+      
+      - name: "Finalization"
+        description: "Finalize the collaborative documentation"
+        tasks:
+          - "Final review for consistency"
+          - "Resolve any remaining issues"
+          - "Format according to standards"
+          - "Publish and distribute"
+  
+  documentation_review_process:
+    reviewer_roles:
+      - name: "Technical Reviewer"
+        responsibilities: "Verify technical accuracy and completeness"
+      - name: "Editorial Reviewer"
+        responsibilities: "Check grammar, style, and clarity"
+      - name: "User Experience Reviewer"
+        responsibilities: "Evaluate from user perspective"
+      - name: "Subject Matter Expert"
+        responsibilities: "Verify domain-specific content"
+    
+    review_process:
+      - name: "Review Preparation"
+        description: "Prepare for the review"
+        tasks:
+          - "Identify appropriate reviewers"
+          - "Define review criteria"
+          - "Provide context and background"
+          - "Set expectations for feedback"
+      
+      - name: "Review Execution"
+        description: "Conduct the review"
+        tasks:
+          - "Share documentation with reviewers"
+          - "Set deadline for feedback"
+          - "Provide feedback template or guidelines"
+          - "Track review progress"
+      
+      - name: "Feedback Integration"
+        description: "Integrate review feedback"
+        tasks:
+          - "Collect and organize feedback"
+          - "Prioritize feedback items"
+          - "Address feedback systematically"
+          - "Follow up on unclear feedback"
+      
+      - name: "Verification"
+        description: "Verify feedback implementation"
+        tasks:
+          - "Review changes with original reviewers"
+          - "Ensure all feedback was addressed"
+          - "Document reasons for not implementing certain feedback"
+          - "Final approval from reviewers"

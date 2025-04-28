@@ -1,0 +1,180 @@
+# Task Delegation Patterns Configuration
+
+title: "Task Delegation Patterns"
+description: "Templates and examples for effectively delegating tasks to different modes in the project"
+
+task_delegation_template:
+  structure: |
+    <new_task>
+    <mode>[target mode]</mode>
+    <message>
+    # Task: [Clear task title]
+    
+    ## Rules
+    [A statement to follow all the rules for the mode, found in markdown files in the folder .roo/rules-{mode}]
+    
+    ## Context
+    [Provide necessary background information and context, including appropriate Jira ticket(s)]
+    
+    ## Objective
+    [Clearly state what needs to be accomplished]
+    
+    ## Requirements
+    [List specific requirements or constraints]
+    
+    ## Deliverables
+    [Specify expected outputs or deliverables]
+    
+    ## Success Criteria
+    [Define what successful completion looks like]
+    
+    ## Next Steps
+    [Indicate what should happen after task completion]
+    </message>
+    </new_task>
+
+example_delegations:
+  - name: "Architect to Code Mode"
+    example: |
+      <new_task>
+      <mode>code</mode>
+      <message>
+      # Task: Implement User Authentication Flow
+      
+      ## Rules
+      Follow all the rules for Code mode, found in markdown files in the folder .roo/rules-code.
+      
+      ## Context
+      We've decided to use AWS Cognito for authentication. The architecture has been defined in the decision-records.roo.md file. The UI mockups are available in the design system.
+      
+      ## Objective
+      Implement the user authentication flow including sign-up, sign-in, password reset, and email verification.
+      
+      ## Requirements
+      - Must use AWS Amplify libraries for Cognito integration
+      - Must follow the existing design system for UI components
+      - Must implement proper error handling and validation
+      - Must be responsive on all device sizes
+      
+      ## Deliverables
+      - Authentication components (SignUp, SignIn, ForgotPassword, etc.)
+      - Integration with AWS Cognito
+      - Unit tests for all components
+      - Documentation of the implementation
+      
+      ## Success Criteria
+      - All authentication flows work as expected
+      - UI matches the design mockups
+      - Tests pass with >90% coverage
+      - Code follows project standards and patterns
+      
+      ## Next Steps
+      After implementation, Debug mode will verify the authentication flows and test edge cases.
+      </message>
+      </new_task>
+  
+  - name: "Boomerang to Debug Mode"
+    example: |
+      <new_task>
+      <mode>debug</mode>
+      <message>
+      # Task: Diagnose Performance Issue in Dashboard
+      
+      ## Rules
+      Follow all the rules for Debug mode, found in markdown files in the folder .roo/rules-debug.
+      
+      ## Context
+      Users have reported slow loading times on the dashboard page. The issue appears to be intermittent and more pronounced when there are many data points to display. Code mode has implemented the dashboard using React with data fetching from our GraphQL API.
+      
+      ## Objective
+      Diagnose the root cause of the performance issue and identify potential solutions.
+      
+      ## Requirements
+      - Use performance profiling tools to identify bottlenecks
+      - Consider both frontend and backend performance
+      - Document findings with evidence
+      - Prioritize potential solutions based on impact and effort
+      
+      ## Deliverables
+      - Performance analysis report
+      - Identified bottlenecks with supporting evidence
+      - Recommended solutions with priority order
+      - Any quick fixes that can be implemented immediately
+      
+      ## Success Criteria
+      - Clear identification of the root cause(s)
+      - Evidence-based analysis with metrics
+      - Actionable recommendations for improvement
+      - Implementation plan for the recommended solutions
+      
+      ## Next Steps
+      After diagnosis, Code mode will implement the recommended solutions based on your findings.
+      </message>
+      </new_task>
+  
+  - name: "Boomerang to Release Engineer Mode"
+    example: |
+      <new_task>
+      <mode>release-engineer</mode>
+      <message>
+      # Task: Prepare v1.2.0 Release
+      
+      ## Rules
+      Follow all the rules for Release Engineer mode, found in markdown files in the folder .roo/rules-release-engineer.
+      
+      ## Context
+      We've completed development of the new features for v1.2.0 as outlined in the product-context.roo.md file. All features have been tested and approved by QA. This is a minor release with several new features and bug fixes.
+      
+      ## Objective
+      Prepare and execute the v1.2.0 release to production.
+      
+      ## Requirements
+      - Follow the release process documented in release-engineering.roo.md
+      - Update version numbers in all relevant files
+      - Generate release notes based on completed work
+      - Coordinate with stakeholders for release timing
+      - Ensure all CI/CD pipelines are passing
+      
+      ## Deliverables
+      - Updated version numbers in all relevant files
+      - Comprehensive release notes
+      - Deployment plan with rollback strategy
+      - Post-release verification plan
+      
+      ## Success Criteria
+      - Successful deployment to production
+      - All new features functioning as expected
+      - No regression issues
+      - Documentation updated to reflect new features
+      - Stakeholders informed of release completion
+      
+      ## Next Steps
+      After release, Debug mode will perform post-release verification and monitor for any issues.
+      </message>
+      </new_task>
+
+best_practices:
+  clarity_and_specificity:
+    - "Be explicit about what needs to be done"
+    - "Avoid ambiguity in requirements"
+    - "Provide specific examples where helpful"
+  
+  context_and_background:
+    - "Include relevant background information"
+    - "Reference existing documentation"
+    - "Explain why the task is important"
+  
+  scope_management:
+    - "Clearly define what is in and out of scope"
+    - "Break large tasks into manageable pieces"
+    - "Set realistic expectations for completion"
+  
+  success_criteria:
+    - "Define what \"done\" looks like"
+    - "Include measurable criteria where possible"
+    - "Specify any quality standards that must be met"
+  
+  handoff_and_continuity:
+    - "Specify what happens after task completion"
+    - "Include information about dependencies"
+    - "Indicate who will review or use the deliverables"

@@ -1,0 +1,124 @@
+# Mode Capabilities Configuration
+
+title: "Mode Capabilities"
+description: "Specialized capabilities, strengths, and ideal use cases for each mode in the project"
+
+modes:
+  - name: "Code Mode"
+    specializations:
+      - "Writing and modifying code"
+      - "Implementing features"
+      - "Fixing bugs"
+      - "Refactoring code"
+      - "Setting up development environments"
+    
+    strengths:
+      - "Deep technical knowledge of programming languages and frameworks"
+      - "Understanding of code patterns and best practices"
+      - "Ability to implement complex algorithms and data structures"
+      - "Expertise in debugging and troubleshooting"
+    
+    ideal_use_cases:
+      - "Implementing new features based on specifications"
+      - "Fixing bugs and addressing technical debt"
+      - "Setting up project scaffolding and infrastructure"
+      - "Optimizing performance and improving code quality"
+      - "Integrating third-party libraries and services"
+  
+  - name: "Architect Mode"
+    specializations:
+      - "System design and architecture"
+      - "Technical planning and roadmapping"
+      - "Making high-level technical decisions"
+      - "Evaluating technical approaches and alternatives"
+      - "Defining standards and patterns"
+    
+    strengths:
+      - "Holistic view of the system"
+      - "Understanding of architectural patterns and tradeoffs"
+      - "Ability to balance technical and business requirements"
+      - "Long-term thinking and planning"
+    
+    ideal_use_cases:
+      - "Designing system architecture"
+      - "Creating technical roadmaps"
+      - "Evaluating technical approaches"
+      - "Making architectural decisions"
+      - "Defining coding standards and patterns"
+  
+  - name: "Debug Mode"
+    specializations:
+      - "Diagnosing and fixing issues"
+      - "Root cause analysis"
+      - "Performance profiling"
+      - "Error handling and recovery"
+    
+    strengths:
+      - "Systematic problem-solving approach"
+      - "Deep understanding of debugging tools and techniques"
+      - "Ability to trace issues across system boundaries"
+      - "Pattern recognition for common failure modes"
+    
+    ideal_use_cases:
+      - "Troubleshooting complex bugs"
+      - "Diagnosing performance issues"
+      - "Analyzing system failures"
+      - "Implementing robust error handling"
+  
+  - name: "Ask Mode"
+    specializations:
+      - "Answering technical questions"
+      - "Explaining concepts and approaches"
+      - "Providing guidance and recommendations"
+      - "Research and information gathering"
+    
+    strengths:
+      - "Broad knowledge across technical domains"
+      - "Clear communication of complex topics"
+      - "Ability to tailor explanations to different audiences"
+      - "Research skills to find relevant information"
+    
+    ideal_use_cases:
+      - "Answering specific technical questions"
+      - "Explaining concepts, patterns, or approaches"
+      - "Providing guidance on best practices"
+      - "Researching options or alternatives"
+  
+  - name: "Release Engineer Mode"
+    specializations:
+      - "Managing release processes"
+      - "Versioning and release planning"
+      - "Deployment automation"
+      - "Release documentation"
+    
+    strengths:
+      - "Understanding of CI/CD pipelines"
+      - "Knowledge of versioning strategies"
+      - "Expertise in deployment automation"
+      - "Attention to detail for release quality"
+    
+    ideal_use_cases:
+      - "Planning and executing releases"
+      - "Setting up CI/CD pipelines"
+      - "Managing versioning and changelogs"
+      - "Creating release documentation"
+      - "Implementing deployment automation"
+  
+  - name: "Boomerang Mode"
+    specializations:
+      - "Workflow orchestration"
+      - "Task delegation and coordination"
+      - "Progress tracking and reporting"
+      - "Cross-functional collaboration"
+    
+    strengths:
+      - "Strategic thinking and planning"
+      - "Understanding of different mode capabilities"
+      - "Ability to break down complex tasks"
+      - "Coordination across multiple workstreams"
+    
+    ideal_use_cases:
+      - "Complex multi-stage tasks requiring different specializations"
+      - "Projects requiring coordination between different modes"
+      - "Tasks that need strategic planning and delegation"
+      - "Progress tracking across multiple workstreams"

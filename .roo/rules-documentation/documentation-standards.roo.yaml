@@ -1,0 +1,305 @@
+# Documentation Standards Configuration
+
+title: "Documentation Standards"
+description: "Standards, best practices, and guidelines for creating and maintaining documentation in the project"
+
+markdown_standards:
+  description: "Standards for writing Markdown documentation"
+  
+  formatting_guidelines:
+    headers:
+      - "Use ATX-style headers (# H1, ## H2, etc.)"
+      - "Include a space after the # character"
+      - "Use sentence case for headers (capitalize first word only)"
+      - "Maintain a clear hierarchy (don't skip levels)"
+    
+    lists:
+      - "Use - for unordered lists"
+      - "Use 1. for ordered lists"
+      - "Maintain consistent indentation for nested lists (2 spaces)"
+      - "Include a blank line before and after lists"
+    
+    code_blocks:
+      - "Use triple backticks (```) for code blocks"
+      - "Specify the language after the opening backticks for syntax highlighting"
+      - "Use single backticks for inline code"
+      - "Include a blank line before and after code blocks"
+    
+    emphasis:
+      - "Use *asterisks* for italic text"
+      - "Use **double asterisks** for bold text"
+      - "Use ***triple asterisks*** for bold italic text"
+      - "Use backticks for `code` or `technical terms`"
+    
+    links:
+      - "Use [text](URL) format for links"
+      - "Use descriptive link text (avoid 'click here')"
+      - "For internal links, use relative paths"
+      - "For external links, include the full URL"
+    
+    images:
+      - "Use ![alt text](image-path) format for images"
+      - "Always include descriptive alt text"
+      - "Store images in a dedicated directory (e.g., /docs/images/)"
+      - "Use relative paths for images"
+    
+    tables:
+      - "Use pipe tables with header row and separator row"
+      - "Align pipe characters for readability in source"
+      - "Include a blank line before and after tables"
+      - "Use tables sparingly and only when appropriate"
+  
+  file_organization:
+    naming_conventions:
+      - "Use lowercase for filenames"
+      - "Use hyphens to separate words in filenames"
+      - "Use descriptive filenames that indicate content"
+      - "Include file extension (.md)"
+    
+    directory_structure:
+      - "Organize files in logical directories"
+      - "Use a flat structure for simple projects"
+      - "Use nested directories for complex projects"
+      - "Include a README.md in each directory"
+    
+    file_structure:
+      - "Start with a level 1 header (# Title)"
+      - "Include a brief description after the title"
+      - "Use a logical progression of sections"
+      - "Include a table of contents for longer documents"
+
+documentation_types:
+  description: "Guidelines for different types of documentation"
+  
+  readme:
+    purpose: "Provide an overview of the project and getting started information"
+    sections:
+      - name: "Project Title"
+        description: "Clear, descriptive title of the project"
+      - name: "Description"
+        description: "Brief overview of what the project does"
+      - name: "Installation"
+        description: "Step-by-step installation instructions"
+      - name: "Usage"
+        description: "Basic usage examples"
+      - name: "Features"
+        description: "List of key features"
+      - name: "Contributing"
+        description: "Guidelines for contributing to the project"
+      - name: "License"
+        description: "License information"
+  
+  api_documentation:
+    purpose: "Document API endpoints, parameters, and responses"
+    sections:
+      - name: "Overview"
+        description: "General information about the API"
+      - name: "Authentication"
+        description: "How to authenticate with the API"
+      - name: "Endpoints"
+        description: "Detailed documentation of each endpoint"
+      - name: "Request Parameters"
+        description: "Parameters for each endpoint"
+      - name: "Response Format"
+        description: "Format and structure of responses"
+      - name: "Error Handling"
+        description: "Common errors and how to handle them"
+      - name: "Rate Limiting"
+        description: "Information about rate limits"
+    
+    endpoint_documentation:
+      - "Use consistent format for all endpoints"
+      - "Include HTTP method, URL, description"
+      - "Document request parameters (path, query, body)"
+      - "Document response format and status codes"
+      - "Include example requests and responses"
+  
+  user_guides:
+    purpose: "Provide instructions for end users"
+    sections:
+      - name: "Introduction"
+        description: "Overview of the guide's purpose"
+      - name: "Getting Started"
+        description: "Basic setup and configuration"
+      - name: "Features"
+        description: "Detailed explanation of features"
+      - name: "Workflows"
+        description: "Common user workflows"
+      - name: "Troubleshooting"
+        description: "Solutions to common problems"
+      - name: "FAQ"
+        description: "Frequently asked questions"
+    
+    best_practices:
+      - "Write from the user's perspective"
+      - "Use clear, non-technical language"
+      - "Include screenshots for visual guidance"
+      - "Provide step-by-step instructions"
+      - "Use consistent terminology"
+  
+  technical_documentation:
+    purpose: "Document technical details for developers"
+    sections:
+      - name: "Architecture"
+        description: "System architecture overview"
+      - name: "Components"
+        description: "Detailed component documentation"
+      - name: "Data Models"
+        description: "Data structure and relationships"
+      - name: "Integration Points"
+        description: "External system integrations"
+      - name: "Development Setup"
+        description: "Setting up the development environment"
+      - name: "Testing"
+        description: "Testing procedures and guidelines"
+    
+    best_practices:
+      - "Include diagrams for complex systems"
+      - "Document assumptions and constraints"
+      - "Provide code examples where appropriate"
+      - "Explain the 'why' behind design decisions"
+      - "Keep technical documentation close to the code"
+
+documentation_maintenance:
+  description: "Guidelines for maintaining documentation"
+  
+  review_process:
+    frequency:
+      - "Review documentation with each major release"
+      - "Schedule quarterly reviews for all documentation"
+      - "Review documentation when related code changes"
+    
+    review_checklist:
+      - "Verify technical accuracy"
+      - "Check for outdated information"
+      - "Ensure consistent formatting"
+      - "Validate links and references"
+      - "Check for completeness"
+  
+  versioning:
+    - "Maintain documentation versions that align with software versions"
+    - "Clearly indicate which version of the software the documentation applies to"
+    - "Archive older versions of documentation"
+    - "Document breaking changes between versions"
+  
+  documentation_debt:
+    identification:
+      - "Missing documentation for existing features"
+      - "Outdated documentation"
+      - "Inconsistent formatting or structure"
+      - "Unclear or ambiguous documentation"
+    
+    prioritization:
+      - "Prioritize documentation for frequently used features"
+      - "Address documentation for areas with frequent questions"
+      - "Focus on documentation that affects user experience"
+      - "Balance documentation debt with feature development"
+
+writing_guidelines:
+  description: "Guidelines for effective technical writing"
+  
+  clarity:
+    - "Use simple, direct language"
+    - "Avoid jargon and acronyms without explanation"
+    - "Use active voice (e.g., 'Click the button' not 'The button should be clicked')"
+    - "Be specific and precise"
+    - "Use consistent terminology throughout"
+  
+  structure:
+    - "Start with the most important information"
+    - "Use descriptive headings and subheadings"
+    - "Keep paragraphs short and focused"
+    - "Use lists for sequential steps or related items"
+    - "Include a summary for longer sections"
+  
+  audience_awareness:
+    - "Consider the technical level of your audience"
+    - "Provide context for complex concepts"
+    - "Define technical terms when first used"
+    - "Include examples that resonate with the audience"
+    - "Address the 'why' as well as the 'how'"
+  
+  accessibility:
+    - "Use descriptive alt text for images"
+    - "Ensure sufficient color contrast"
+    - "Provide text alternatives for non-text content"
+    - "Use descriptive link text"
+    - "Structure content with proper headings"
+
+documentation_tools:
+  description: "Tools and processes for documentation"
+  
+  markdown_editors:
+    - name: "Visual Studio Code"
+      features: "Syntax highlighting, preview, extensions"
+    - name: "Typora"
+      features: "WYSIWYG editing, export options"
+    - name: "Markdown Editor in IDE"
+      features: "Integrated with development environment"
+  
+  documentation_generators:
+    - name: "JSDoc"
+      purpose: "Generate API documentation from JavaScript code comments"
+    - name: "TypeDoc"
+      purpose: "Generate documentation from TypeScript code"
+    - name: "Swagger/OpenAPI"
+      purpose: "Generate API documentation from OpenAPI specifications"
+  
+  diagram_tools:
+    - name: "Mermaid"
+      purpose: "Create diagrams using text notation in Markdown"
+    - name: "PlantUML"
+      purpose: "Create UML diagrams using text notation"
+    - name: "Draw.io"
+      purpose: "Create and export diagrams"
+  
+  collaboration_tools:
+    - name: "Git/GitHub"
+      purpose: "Version control for documentation"
+    - name: "Pull Requests"
+      purpose: "Review documentation changes"
+    - name: "Issues"
+      purpose: "Track documentation tasks and improvements"
+
+documentation_workflow:
+  description: "Workflow for creating and updating documentation"
+  
+  creation_process:
+    planning:
+      - "Identify the documentation need"
+      - "Determine the target audience"
+      - "Define the scope and objectives"
+      - "Choose the appropriate documentation type"
+    
+    drafting:
+      - "Create an outline with main sections"
+      - "Write the first draft focusing on content"
+      - "Include code examples and diagrams as needed"
+      - "Follow the established style guide"
+    
+    review:
+      - "Self-review for clarity and completeness"
+      - "Technical review for accuracy"
+      - "Peer review for usability and understanding"
+      - "Address feedback and make revisions"
+    
+    publishing:
+      - "Format according to standards"
+      - "Add to the appropriate location in the documentation structure"
+      - "Update any related documentation"
+      - "Announce the new documentation to relevant stakeholders"
+  
+  update_process:
+    triggers:
+      - "Code changes that affect functionality"
+      - "New features or capabilities"
+      - "User feedback indicating confusion or gaps"
+      - "Regular review cycle"
+    
+    steps:
+      - "Identify documentation that needs updating"
+      - "Review the current content for accuracy"
+      - "Make necessary changes following the style guide"
+      - "Submit for review and approval"
+      - "Update version information if applicable"
+      - "Publish the updated documentation"

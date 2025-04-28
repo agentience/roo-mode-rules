@@ -1,0 +1,154 @@
+# Workflow Orchestration Configuration
+
+title: "Workflow Orchestration"
+description: "Patterns and practices for orchestrating workflows across different modes in the project"
+
+task_breakdown_patterns:
+  feature_implementation_workflow:
+    steps:
+      - mode: "Architect Mode"
+        task: "Design the feature architecture and make key technical decisions"
+      - mode: "Code Mode"
+        task: "Implement the core functionality"
+      - mode: "Debug Mode"
+        task: "Test and troubleshoot any issues"
+      - mode: "Code Mode"
+        task: "Refine implementation based on testing"
+      - mode: "Release Engineer Mode"
+        task: "Prepare for release and deployment"
+  
+  bug_resolution_workflow:
+    steps:
+      - mode: "Debug Mode"
+        task: "Diagnose the issue and identify root cause"
+      - mode: "Code Mode"
+        task: "Implement the fix"
+      - mode: "Debug Mode"
+        task: "Verify the fix resolves the issue"
+      - mode: "Release Engineer Mode"
+        task: "Prepare for release and deployment"
+  
+  research_and_decision_workflow:
+    steps:
+      - mode: "Ask Mode"
+        task: "Research options and gather information"
+      - mode: "Architect Mode"
+        task: "Evaluate alternatives and make decisions"
+      - mode: "Code Mode"
+        task: "Implement proof of concept if needed"
+      - mode: "Architect Mode"
+        task: "Finalize decision based on POC results"
+
+mode_transition_patterns:
+  when_to_transition:
+    - name: "Completion-Based"
+      description: "Transition when a discrete task is completed"
+    - name: "Expertise-Based"
+      description: "Transition when specialized knowledge is required"
+    - name: "Blocker-Based"
+      description: "Transition when progress is blocked by a different concern"
+    - name: "Iterative"
+      description: "Transition back and forth between modes during iterative development"
+  
+  how_to_transition:
+    steps:
+      - name: "Clear Handoff"
+        description: "Provide complete context and specific instructions"
+      - name: "Defined Scope"
+        description: "Clearly define the scope of work for the target mode"
+      - name: "Success Criteria"
+        description: "Specify what successful completion looks like"
+      - name: "Return Instructions"
+        description: "Indicate what should happen after the delegated task"
+
+complex_task_orchestration:
+  multi_phase_project_pattern:
+    phases:
+      - name: "Planning Phase"
+        steps:
+          - mode: "Architect Mode"
+            task: "Define architecture and technical approach"
+          - mode: "Ask Mode"
+            task: "Research technologies and approaches"
+          - mode: "Architect Mode"
+            task: "Make key technical decisions"
+      
+      - name: "Implementation Phase"
+        steps:
+          - mode: "Code Mode"
+            task: "Set up project structure"
+          - mode: "Code Mode"
+            task: "Implement core functionality"
+          - mode: "Debug Mode"
+            task: "Address issues as they arise"
+      
+      - name: "Refinement Phase"
+        steps:
+          - mode: "Debug Mode"
+            task: "Comprehensive testing"
+          - mode: "Code Mode"
+            task: "Refinements and optimizations"
+          - mode: "Architect Mode"
+            task: "Architecture review"
+      
+      - name: "Release Phase"
+        steps:
+          - mode: "Release Engineer Mode"
+            task: "Prepare for deployment"
+          - mode: "Debug Mode"
+            task: "Final validation"
+          - mode: "Release Engineer Mode"
+            task: "Execute release"
+  
+  parallel_workstreams_pattern:
+    streams:
+      - name: "Stream Coordination"
+        steps:
+          - mode: "Boomerang Mode"
+            task: "Coordinate overall progress"
+          - mode: "Architect Mode"
+            task: "Ensure architectural consistency"
+      
+      - name: "Stream A: Frontend"
+        steps:
+          - mode: "Code Mode"
+            task: "Implement UI components"
+          - mode: "Debug Mode"
+            task: "Test UI functionality"
+      
+      - name: "Stream B: Backend"
+        steps:
+          - mode: "Code Mode"
+            task: "Implement API endpoints"
+          - mode: "Debug Mode"
+            task: "Test API functionality"
+      
+      - name: "Stream C: Infrastructure"
+        steps:
+          - mode: "Release Engineer Mode"
+            task: "Set up deployment pipeline"
+          - mode: "Code Mode"
+            task: "Implement infrastructure as code"
+      
+      - name: "Integration"
+        steps:
+          - mode: "Debug Mode"
+            task: "Integration testing"
+          - mode: "Code Mode"
+            task: "Address integration issues"
+
+progress_tracking_and_reporting:
+  milestone_tracking:
+    - "Define clear milestones for complex workflows"
+    - "Track progress against milestones"
+    - "Report status at milestone boundaries"
+  
+  blockers_and_dependencies:
+    - "Identify dependencies between tasks"
+    - "Track blockers that prevent progress"
+    - "Coordinate resolution of blockers"
+  
+  status_reporting:
+    - "Maintain current status in active-context.roo.md"
+    - "Update progress-tracker.roo.md after significant progress"
+    - "Communicate status across mode transitions"

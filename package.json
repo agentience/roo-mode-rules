@@ -1,0 +1,14 @@
+{
+  "name": "roo-mode-rules",
+  "version": "0.1.0",
+  "description": "Contains a set of .roo rules for use with specific modes.  These can be used as templates for other projects.",
+  "main": "index.js",
+  "scripts": {
+    "copy-context": "node scripts/copy-context-files.js",
+    "copy-roo": "node scripts/copy_roo.js"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "mkdirp": "^3.0.1"
+  }
+}
