@@ -83,8 +83,11 @@ roo-mode-rules/
 │   ├── rules-code/            # Rules specific to Code mode
 │   └── ...                    # Other mode-specific rules
 ├── scripts/
-│   ├── copy-context-files.js  # Script to copy context files
-│   └── copy_roo.js            # Script to copy .roo directory to target
+│   ├── copy-context-files.js      # Script to copy context files
+│   ├── copy_roo.js                # Script to copy .roo directory to target
+│   ├── mcp-server-relevance.js    # MCP server relevance analysis
+│   ├── enhance-task-delegation.js # Task delegation enhancement with MCP servers
+│   └── test-mcp-relevance.js      # Test script for MCP server relevance
 ├── mode-rule-context.yaml     # Defines which context files to use for each mode
 ├── .roomodes                  # Custom modes configuration
 └── package.json               # Project dependencies and scripts
@@ -103,6 +106,48 @@ roo-mode-rules/
 2. Create appropriate rule files in the `.roo/context/` directory
 3. Update the `mode-rule-context.yaml` file to include your custom mode
 4. Follow the steps above to apply the changes to your target project
+
+## MCP Server Relevance for Orchestrator Mode
+
+The project includes functionality to enhance the orchestrator mode's task delegation with MCP server relevance. This feature analyzes the content of a subtask and identifies MCP servers that are relevant to the task, providing this information to the delegated mode.
+
+### How It Works
+
+1. When the orchestrator mode delegates a task to another mode using the `new_task` tool, the system:
+   - Analyzes the task's objective, requirements, and context
+   - Extracts keywords and concepts from the task content
+   - Matches these against MCP server descriptions, tools, and resources
+   - Identifies the most relevant MCP servers for the task
+   - Includes this information in the task delegation message
+
+2. The delegated mode receives a task message with a "Relevant MCP Servers" section that lists MCP servers that are likely to be useful for the task, along with brief explanations of why they're relevant.
+
+### Benefits
+
+- **Improved Efficiency**: Modes immediately know which MCP servers to consider for a task
+- **Reduced Cognitive Load**: Modes don't need to search through all available MCP servers
+- **Better Task Completion**: Access to the right tools leads to better task outcomes
+- **Contextual Awareness**: Modes have more context about the task requirements
+
+### Testing the Functionality
+
+You can test the MCP server relevance functionality using the provided test script:
+
+```bash
+npm run test-mcp-relevance
+```
+
+This script demonstrates how the system analyzes different types of tasks and identifies relevant MCP servers.
+
+### Implementation Details
+
+The functionality is implemented in three main files:
+
+1. **mcp-server-relevance.js**: Core functionality for analyzing tasks and identifying relevant MCP servers
+2. **enhance-task-delegation.js**: Integration with the task delegation process
+3. **test-mcp-relevance.js**: Test script with sample tasks and MCP servers
+
+The task delegation template in `.roo/rules-orchestrator/task-delegation-patterns.roo.yaml` has been updated to include a section for relevant MCP servers.
 
 ## License
 

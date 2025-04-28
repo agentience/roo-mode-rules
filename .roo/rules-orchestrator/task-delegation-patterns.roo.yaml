@@ -28,6 +28,9 @@ task_delegation_template:
     ## Success Criteria
     [Define what successful completion looks like]
     
+    ## Relevant MCP Servers
+    [List MCP servers that are relevant to this task, with brief explanations of why they're relevant]
+    
     ## Next Steps
     [Indicate what should happen after task completion]
     </message>
@@ -67,6 +70,11 @@ example_delegations:
       - UI matches the design mockups
       - Tests pass with >90% coverage
       - Code follows project standards and patterns
+      
+      ## Relevant MCP Servers
+      - **unirt.amplify-doc-mcp-server**: Provides AWS Amplify documentation for implementing authentication features
+      - **awslabs.aws-documentation-mcp-server**: Offers AWS documentation for Cognito and related services
+      - **tribal**: Useful for tracking any errors encountered during implementation and finding solutions
       
       ## Next Steps
       After implementation, Debug mode will verify the authentication flows and test edge cases.
@@ -178,3 +186,9 @@ best_practices:
     - "Specify what happens after task completion"
     - "Include information about dependencies"
     - "Indicate who will review or use the deliverables"
+    
+  mcp_server_relevance:
+    - "Analyze the task objective and requirements to identify relevant MCP servers"
+    - "Include 2-4 most relevant MCP servers with brief explanations of why they're relevant"
+    - "Focus on servers that provide tools or resources directly applicable to the task"
+    - "Consider both primary task needs and potential supporting capabilities"
