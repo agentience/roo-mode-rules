@@ -7,7 +7,8 @@ This file tracks the project's progress using a task list format.
 
 ## Completed Tasks
 
-*
+* [2025-04-28 15:56:18] - Initialized git repository, created README.md and LICENSE files, and pushed to GitHub repository at git@github.com:agentience/roo-mode-rules.git.
+* [2025-04-28 16:08:20] - Updated project license from MIT to Apache License 2.0 to comply with the upstream repository (roo-code-memory-bank).
 
 ## Current Tasks
 

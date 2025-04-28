@@ -10,5 +10,10 @@
   "dependencies": {
     "js-yaml": "^4.1.0",
     "mkdirp": "^3.0.1"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agentience/roo-mode-rules.git"
   }
 }
