@@ -7,6 +7,37 @@ migration_strategy:
   benefits:
     - "Minimizes downtime during migration"
 
+data_modeling_strategies:
+  description: "Key strategies for modeling data in DynamoDB when migrating from a relational database."
+  single_table:
+    name: "Single-Table Design"
+    description: "Consolidating multiple relational tables into a single DynamoDB table. This is often recommended for related data that is frequently accessed together, optimizing for read performance and reducing the number of requests."
+    considerations:
+      - "Requires careful design of Partition Keys and Sort Keys to support various access patterns."
+      - "Can lead to complex item structures and query logic."
+      - "Best suited for data with well-defined access patterns."
+  table_per_model:
+    name: "Table Per Model"
+    description: "Creating a separate DynamoDB table for each distinct entity or model from the relational database. This is simpler to implement initially but can lead to more complex queries for related data that spans multiple tables."
+    considerations:
+      - "Easier to map directly from relational schema."
+      - "Requires multiple requests to retrieve related data."
+      - "May be suitable for data with few or simple relationships."
+  hybrid:
+    name: "Hybrid Approach"
+    description: "Combining single-table design for highly related data with table-per-model for less frequently accessed or less related data. This approach balances the benefits of both strategies based on the specific access patterns and relationship complexity."
+    considerations:
+      - "Requires careful analysis of data relationships and access patterns."
+      - "Can offer a good balance between simplicity and performance."
+      - "May involve more complex data modeling decisions."
+  relationship_complexity:
+    description: "Choosing the appropriate strategy depends on the complexity of relationships in the relational database and the application's access patterns."
+    guidelines:
+      - "Highly normalized relational schemas with complex relationships often benefit from a single-table design to reduce joins."
+      - "Schemas with simple or few relationships might be adequately served by a table-per-model approach."
+      - "Analyze access patterns first – DynamoDB modeling is access pattern driven, not relationship driven."
+      - "Consider using Global Secondary Indexes (GSIs) and Local Secondary Indexes (LSIs) to support different query patterns within a single table."
+
 prerequisites:
   mysql_source:
     - "Enable binary logging for CDC."
@@ -32,6 +63,37 @@ dms_task_configuration:
     - "Adjust ParallelLoadThreads and ParallelLoadBufferSize for full load performance, monitoring for throttling on the target."
     - "Adjust commit rate during full load for better performance."
     - "Consider distributing workload using multiple tasks with source filter conditions for very large tables."
+
+scripted_migration_process:
+  description: "Guidelines for implementing a custom scripted migration process using TypeScript as an alternative to AWS DMS."
+  when_to_use:
+    - "When AWS DMS limitations or specific requirements necessitate a custom approach."
+    - "For fine-grained control over the migration logic and data transformation."
+    - "When migrating smaller datasets where the overhead of setting up DMS might be disproportionate."
+  key_steps:
+    - name: "Connect to Databases"
+      description: "Establish connections to both the source MySQL database (using a library like `mysql2`) and the target DynamoDB (using the AWS SDK for JavaScript/TypeScript)."
+    - name: "Read Data from Source"
+      description: "Query data from the MySQL database, potentially in batches to manage memory usage for large tables."
+    - name: "Transform Data"
+      description: "Implement logic to transform the relational data structure into the desired DynamoDB item structure, applying the chosen data modeling strategy (single-table, table-per-model, or hybrid)."
+    - name: "Write Data to Target"
+      description: "Write the transformed data to the target DynamoDB table(s) using the AWS SDK. Consider using batch write operations for efficiency."
+    - name: "Handle Relationships"
+      description: "Implement logic to handle relationships between entities based on the chosen data modeling strategy. This might involve denormalizing data, using secondary indexes, or performing multiple queries."
+  error_handling:
+    - "Implement robust error handling for database connections, read/write operations, and data transformation."
+    - "Log errors with sufficient detail for debugging."
+    - "Consider retry mechanisms for transient errors (e.g., DynamoDB throttling)."
+  monitoring:
+    - "Implement logging to track the progress of the migration (e.g., number of records processed, tables completed)."
+    - "Monitor resource utilization on the source and target databases during the migration."
+    - "Consider using AWS CloudWatch for monitoring script execution and resource metrics."
+  considerations:
+    - "Managing state and progress for large migrations to allow for resumption if interrupted."
+    - "Implementing change data capture (CDC) if ongoing replication is required (more complex than with DMS)."
+    - "Performance optimization for reading from MySQL and writing to DynamoDB."
+    - "Security of database credentials and network access."
 
 monitoring_and_validation:
   - "Continuously monitor CloudWatch metrics (compute, memory, network, IOPS) for the replication instance and target DynamoDB table."
