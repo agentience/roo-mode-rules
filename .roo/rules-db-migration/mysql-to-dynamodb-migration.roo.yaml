@@ -1,0 +1,48 @@
+title: "MySQL to DynamoDB Migration Best Practices"
+description: "Guidelines and best practices for migrating data from MySQL to AWS DynamoDB using AWS Database Migration Service (DMS)"
+
+migration_strategy:
+  tool: "AWS Database Migration Service (DMS)"
+  type: "Full Load + CDC (Change Data Capture)"
+  benefits:
+    - "Minimizes downtime during migration"
+
+prerequisites:
+  mysql_source:
+    - "Enable binary logging for CDC."
+    - "Configure appropriate binary log retention based on full load time."
+    - "Grant AWS DMS user necessary permissions (REPLICATION CLIENT, REPLICATION SLAVE, SELECT)."
+    - "Configure network connectivity and security groups to allow access from DMS replication instance."
+  dynamodb_target:
+    - "Pre-create the target table with appropriate partition and sort keys based on access patterns."
+    - "Consider using On-Demand capacity during migration and adjust later based on traffic."
+    - "Create an IAM role for DMS with permissions to interact with DynamoDB tables and control tables (awsdms_apply_exceptions, awsdms_full_load_exceptions)."
+  replication_instance:
+    - "Choose an appropriate instance size and storage based on data volume and performance requirements."
+    - "Use Multi-AZ deployment for high availability."
+    - "Avoid making the instance publicly accessible unless necessary for source/target outside VPC."
+
+dms_task_configuration:
+  general:
+    - "Use object mapping ('map-record-to-record') to handle schema differences and composite primary keys."
+    - "Enable CloudWatch Logs for troubleshooting and monitoring."
+    - "Set target table preparation mode to 'Do nothing' if pre-creating the table."
+    - "Disable LOB settings if the source table doesn't contain large objects."
+  performance_tuning:
+    - "Adjust ParallelLoadThreads and ParallelLoadBufferSize for full load performance, monitoring for throttling on the target."
+    - "Adjust commit rate during full load for better performance."
+    - "Consider distributing workload using multiple tasks with source filter conditions for very large tables."
+
+monitoring_and_validation:
+  - "Continuously monitor CloudWatch metrics (compute, memory, network, IOPS) for the replication instance and target DynamoDB table."
+  - "Monitor for DynamoDB throttling events and adjust ParallelLoadThreads or capacity mode."
+  - "Optionally validate data migration by querying the target DynamoDB table (be cautious with scans on large tables)."
+
+cleanup:
+  - "Delete created cloud resources (replication instance, endpoints, task, etc.) after successful migration."
+
+considerations:
+  - "Schema design differences between relational (MySQL) and NoSQL (DynamoDB) databases."
+  - "Impact of partition and sort key selection on DynamoDB performance and CDC operations."
+  - "Handling of unsupported data types."
+  - "Workload on the source database during full load."

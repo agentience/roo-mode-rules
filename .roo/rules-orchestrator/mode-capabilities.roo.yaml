@@ -146,3 +146,26 @@ modes:
       - "Setting up frontend testing infrastructure"
       - "Optimizing frontend performance"
       - "Implementing accessibility features"
+
+  - name: "DB Migration Mode"
+    specializations:
+      - "Database migration planning and execution"
+      - "Data modeling for NoSQL databases"
+      - "AWS Database Migration Service (DMS) configuration"
+      - "Data validation and integrity verification"
+      - "Migration monitoring and troubleshooting"
+    
+    strengths:
+      - "Deep understanding of relational and NoSQL database concepts"
+      - "Expertise in AWS database migration tools and services"
+      - "Knowledge of data modeling best practices for DynamoDB"
+      - "Experience with migration strategies to minimize downtime"
+      - "Ability to design efficient NoSQL access patterns"
+    
+    ideal_use_cases:
+      - "Migrating from MySQL to DynamoDB"
+      - "Planning and executing database migrations"
+      - "Designing DynamoDB table structures"
+      - "Setting up AWS DMS replication tasks"
+      - "Validating data integrity during migrations"
+      - "Optimizing database performance post-migration"

@@ -281,6 +281,50 @@ example_delegations:
       </message>
       </new_task>
 
+  - name: "Architect to DB Migration Mode"
+    example: |
+      <new_task>
+      <mode>db-migration</mode>
+      <message>
+      # Task: Migrate Customer Data from MySQL to DynamoDB
+
+      ## Rules
+      Follow all the rules for DB Migration mode, found in markdown files in the folder .roo/rules-db-migration.
+
+      ## Context
+      Our application currently uses a MySQL database for customer data storage. As part of our move to a more scalable architecture, we've decided to migrate this data to AWS DynamoDB. The customer data includes personal information, purchase history, and preferences. The migration needs to be performed with minimal downtime.
+
+      ## Objective
+      Plan and execute the migration of customer data from MySQL to DynamoDB using AWS Database Migration Service (DMS) with Change Data Capture (CDC) to minimize downtime.
+
+      ## Requirements
+      - Set up AWS DMS replication instance with appropriate configuration
+      - Configure MySQL source with binary logging for CDC
+      - Design appropriate DynamoDB table structure with efficient partition and sort keys
+      - Create and configure DMS tasks for full load and ongoing replication
+      - Monitor the migration process and validate data integrity
+      - Document the migration process and any issues encountered
+
+      ## Deliverables
+      - DynamoDB table design documentation
+      - AWS DMS configuration details
+      - Migration execution plan with timeline
+      - Validation strategy and results
+      - Post-migration cleanup plan
+      - Rollback strategy in case of issues
+
+      ## Success Criteria
+      - All customer data successfully migrated to DynamoDB
+      - Data integrity verified through validation checks
+      - Minimal application downtime during cutover
+      - Performance metrics for the new DynamoDB implementation
+      - Documentation of the migration process for future reference
+
+      ## Next Steps
+      After successful migration, Code mode will update the application to use the new DynamoDB data source instead of MySQL.
+      </message>
+      </new_task>
+
 best_practices:
   clarity_and_specificity:
     - "Be explicit about what needs to be done"

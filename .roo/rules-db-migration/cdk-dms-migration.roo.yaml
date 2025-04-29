@@ -1,0 +1,173 @@
+title: "AWS CDK for Database Migration Rules"
+description: "Guidelines for using AWS Cloud Development Kit (CDK) to provision and configure AWS Database Migration Service (DMS) resources for database migrations, specifically from MySQL to DynamoDB."
+
+cdk_dms_module:
+  package: "@aws-cdk/aws-dms" # Note: This is a CDK v1 package, consider migrating to CDK v2
+  construct_level: "L1 (CloudFormation resources)"
+  installation: |
+    # For CDK v2
+    npm install aws-cdk-lib
+    # The DMS constructs are part of aws-cdk-lib in v2
+
+key_dms_resources_in_cdk:
+  - name: "Replication Instance"
+    cdk_construct: "CfnReplicationInstance" # Or equivalent in CDK v2
+    description: "Provisions the replication instance that hosts the DMS tasks."
+    configuration_considerations:
+      - "Instance class and allocated storage based on workload."
+      - "Multi-AZ for high availability."
+      - "VPC and security group configuration."
+  - name: "Source Endpoint"
+    cdk_construct: "CfnEndpoint" # Or equivalent in CDK v2
+    description: "Configures the connection to the source database (e.g., MySQL)."
+    configuration_considerations:
+      - "Endpoint type (source)."
+      - "Engine name (mysql)."
+      - "Server name, port, username, password (or secrets manager reference)."
+      - "SSL mode."
+  - name: "Target Endpoint"
+    cdk_construct: "CfnEndpoint" # Or equivalent in CDK v2
+    description: "Configures the connection to the target database (e.g., DynamoDB)."
+    configuration_considerations:
+      - "Endpoint type (target)."
+      - "Engine name (dynamodb)."
+      - "Service access role ARN for permissions."
+  - name: "Replication Task"
+    cdk_construct: "CfnReplicationTask" # Or equivalent in CDK v2
+    description: "Defines the migration task, including source and target endpoints, and migration settings."
+    configuration_considerations:
+      - "Migration type (Full Load + CDC)."
+      - "Replication instance ARN."
+      - "Source and target endpoint ARNs."
+      - "Table mappings (including object mapping for schema transformation)."
+      - "Task settings (e.g., ParallelLoadThreads, CommitRate, LOB settings, logging)."
+
+integrating_dms_best_practices_in_cdk:
+  - "The best practices for configuring DMS resources (instance sizing, binary logging, IAM permissions, network, task settings) apply directly when defining these resources in CDK using L1 constructs."
+  - "Use CDK to provision necessary supporting resources like IAM roles and security groups with appropriate permissions and rules."
+  - "Define DynamoDB tables with appropriate partition/sort keys and capacity settings using CDK."
+
+example_cdk_structure_typescript: |
+  import * as cdk from 'aws-cdk-lib';
+  import * as dms from 'aws-cdk-lib/aws-dms';
+  import * as iam from 'aws-cdk-lib/aws-iam';
+  import * as ec2 from 'aws-cdk-lib/aws-ec2';
+  import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+
+  export class DatabaseMigrationStack extends cdk.Stack {
+    constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+      super(scope, id, props);
+
+      // Define VPC and Subnets (assuming existing or creating new)
+      const vpc = new ec2.Vpc(this, 'MigrationVpc', {
+        maxAzs: 2,
+      });
+
+      // Define Security Group for DMS Replication Instance
+      const dmsSecurityGroup = new ec2.SecurityGroup(this, 'DmsSecurityGroup', {
+        vpc,
+        description: 'Allow access from DMS replication instance to databases',
+      });
+
+      // Define IAM Role for DMS to access DynamoDB
+      const dmsDynamoDbRole = new iam.Role(this, 'DmsDynamoDbRole', {
+        assumedBy: new iam.ServicePrincipal('dms.amazonaws.com'),
+        managedPolicies: [
+          iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AmazonDMSv2ServiceRole'),
+        ],
+      });
+
+      // Grant permissions to DynamoDB table (replace with your table name/ARN)
+      const targetTable = new dynamodb.Table(this, 'TargetDynamoDbTable', {
+        partitionKey: { name: 'user_id', type: dynamodb.AttributeType.STRING },
+        sortKey: { name: 'area_code', type: dynamodb.AttributeType.STRING },
+        billingMode: dynamodb.BillingMode.PAY_PER_REQUEST, // Or PROVISIONED
+      });
+      targetTable.grantReadWriteData(dmsDynamoDbRole);
+
+      // Define DMS Replication Instance
+      const replicationInstance = new dms.CfnReplicationInstance(this, 'ReplicationInstance', {
+        replicationInstanceClass: 'dms.c5.large', // Choose appropriate instance class
+        allocatedStorage: 50, // Adjust storage as needed
+        vpcSecurityIds: [dmsSecurityGroup.securityGroupId],
+        replicationSubnetGroupId: vpc.privateSubnets[0].subnetId, // Or create a dedicated subnet group
+        multiAz: true,
+        publiclyAccessible: false,
+      });
+
+      // Define DMS Source Endpoint (MySQL) - Replace with your MySQL details
+      const sourceEndpoint = new dms.CfnEndpoint(this, 'MysqlSourceEndpoint', {
+        endpointType: 'source',
+        engineName: 'mysql',
+        serverName: 'YOUR_MYSQL_HOST',
+        port: 3306,
+        username: 'YOUR_MYSQL_USER',
+        password: 'YOUR_MYSQL_PASSWORD', // Consider using Secrets Manager
+        // Extra connection attributes if needed
+      });
+
+      // Define DMS Target Endpoint (DynamoDB)
+      const targetEndpoint = new dms.CfnEndpoint(this, 'DynamoDbTargetEndpoint', {
+        endpointType: 'target',
+        engineName: 'dynamodb',
+        serviceAccessRoleArn: dmsDynamoDbRole.roleArn,
+        // Extra connection attributes if needed
+      });
+
+      // Define DMS Replication Task
+      const replicationTask = new dms.CfnReplicationTask(this, 'ReplicationTask', {
+        replicationTaskIdentifier: 'mysql-to-dynamodb-migration-task',
+        replicationInstanceArn: replicationInstance.ref,
+        sourceEndpointArn: sourceEndpoint.ref,
+        targetEndpointArn: targetEndpoint.ref,
+        migrationType: 'full-load-and-cdc',
+        tableMappings: JSON.stringify({
+           "rules": [
+            {
+              "rule-type": "selection",
+              "rule-id": "1",
+              "rule-name": "1",
+              "object-locator": {
+                "schema-name": "your_mysql_schema",
+                "table-name": "your_mysql_table"
+              },
+              "rule-action": "include"
+            },
+            {
+              "rule-type": "object-mapping",
+              "rule-id": "2",
+              "rule-name": "2",
+              "rule-action": "map-record-to-record",
+              "object-locator": {
+                "schema-name": "your_mysql_schema",
+                "table-name": "your_mysql_table"
+              },
+              "target-table-name": "your_dynamodb_table_name",
+              "mapping-parameters": {
+                "partition-key-name": "your_partition_key",
+                "sort-key-name": "your_sort_key",
+                "attribute-mappings": [
+                  // Define attribute mappings here
+                ]
+              }
+            }
+          ]
+        }),
+        replicationTaskSettings: JSON.stringify({
+          "TargetMetadata": {
+            "SupportLobs": false, // Adjust based on source data
+            "ParallelLoadThreads": 150, // Adjust based on testing and monitoring
+            "CommitRate": 50000, // Adjust based on testing and monitoring
+            // Other target metadata settings
+          },
+          "FullLoadSettings": {
+            "TargetTablePrepMode": "DO_NOTHING", // Or TRUNCATE if not pre-creating
+            "CommitRate": 50000, // Should match TargetMetadata.CommitRate
+            // Other full load settings
+          },
+          // Other task settings like logging
+        }),
+        // Tags if needed
+      });
+    }
+  }
