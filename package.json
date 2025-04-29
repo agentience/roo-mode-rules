@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "copy-context": "node scripts/copy-context-files.js",
-    "copy-roo": "node scripts/copy_roo.js",
+    "copy-roo": "node scripts/copy_roo.js \"$@\"",
     "test-mcp-relevance": "node scripts/test-mcp-relevance.js"
   },
   "dependencies": {

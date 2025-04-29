@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Copy history file
+.copy-history.yaml
+
+# Build directories
+dist/
+build/
