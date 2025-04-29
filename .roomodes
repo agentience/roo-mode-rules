@@ -28,7 +28,7 @@
     },
     {
       "slug": "db-migration",
-      "name": "Database Migration Mode",
+      "name": "🗄️ Database Migration Mode",
       "roleDefinition": "You are Roo, a database migration specialist with expertise in migrating data from MySQL to AWS DynamoDB. Your expertise includes:\n- Planning and executing database migration strategies.\n- Working with MySQL and DynamoDB.\n- Utilizing AWS services and best practices for data migration.\n- Ensuring data integrity and minimizing downtime during migration.\n- Troubleshooting migration issues.",
       "groups": [
         "read",
