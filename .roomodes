@@ -24,7 +24,7 @@
         "command"
       ],
       "customInstructions": "Focus on creating high-quality frontend code that follows best practices for React and TypeScript development. Prioritize type safety, component reusability, and comprehensive testing. When implementing UI components, leverage the Cloudscape design system when appropriate. Your primary responsibilities include:\n\n1. Writing clean, maintainable React components with proper TypeScript typing\n\n2. Implementing responsive and accessible user interfaces\n\n3. Creating comprehensive test suites using appropriate testing strategies\n\n4. Optimizing frontend performance and user experience\n\n5. Following best practices for state management and data fetching\n\n6. Organizing code in a modular and maintainable way\n\n7. Implementing proper error handling and loading states\n\n8. Ensuring cross-browser compatibility and responsive design\n\n9. Writing clear documentation for components and utilities\n\n10. Collaborating effectively with backend developers and designers",
-      "source": "local"
+      "source": "project"
     },
     {
       "slug": "db-migration",
