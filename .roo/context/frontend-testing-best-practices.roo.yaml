@@ -1,0 +1,293 @@
+# Frontend Testing Best Practices Configuration
+
+title: "Frontend Testing Best Practices"
+description: "Best practices for testing frontend applications built with React and TypeScript"
+
+frontend_testing_approaches:
+  description: "Different testing approaches specifically for frontend applications"
+  
+  component_testing:
+    scope: "Individual React components"
+    responsibility: "Frontend developers"
+    frequency: "During development, pre-commit"
+    automation: "Integrated with CI/CD pipeline"
+    isolation: "Mock external dependencies, context providers, and API calls"
+    tools: "React Testing Library, Jest, Vitest"
+    best_practices:
+      - "Test component behavior, not implementation details"
+      - "Focus on user interactions and accessibility"
+      - "Use data-testid attributes sparingly"
+      - "Test both success and error states"
+      - "Ensure proper cleanup after each test"
+  
+  hook_testing:
+    scope: "Custom React hooks"
+    responsibility: "Frontend developers"
+    frequency: "During development, pre-commit"
+    automation: "Integrated with CI/CD pipeline"
+    isolation: "Mock external dependencies"
+    tools: "React Hooks Testing Library, Jest, Vitest"
+    best_practices:
+      - "Test hook behavior in isolation"
+      - "Test all possible states and transitions"
+      - "Mock external dependencies"
+      - "Test error handling"
+      - "Ensure proper cleanup after each test"
+  
+  integration_testing:
+    scope: "Interactions between components and services"
+    responsibility: "Frontend developers and QA"
+    frequency: "After feature completion, pre-release"
+    automation: "Scheduled in CI/CD pipeline"
+    environment: "Staging environment with isolated data"
+    tools: "Cypress, Playwright, MSW (Mock Service Worker)"
+    best_practices:
+      - "Focus on component interactions"
+      - "Mock API responses for consistent testing"
+      - "Test user flows across multiple components"
+      - "Test form submissions and validations"
+      - "Test error handling and recovery"
+  
+  end_to_end_testing:
+    scope: "Complete user flows and scenarios"
+    responsibility: "QA team with developer support"
+    frequency: "Pre-release, regression testing"
+    automation: "Key flows automated, edge cases manual"
+    environment: "Production-like environment"
+    tools: "Cypress, Playwright, Selenium"
+    best_practices:
+      - "Focus on critical user journeys"
+      - "Test across different browsers and devices"
+      - "Include accessibility testing"
+      - "Test performance and loading states"
+      - "Use realistic test data"
+  
+  visual_regression_testing:
+    scope: "UI appearance and layout"
+    responsibility: "Frontend developers and QA"
+    frequency: "After UI changes, pre-release"
+    automation: "Integrated with CI/CD pipeline"
+    tools: "Percy, Applitools, Chromatic"
+    best_practices:
+      - "Capture baseline screenshots for comparison"
+      - "Test across different viewport sizes"
+      - "Focus on components with complex styling"
+      - "Update baselines when design changes are approved"
+      - "Review visual differences carefully"
+
+frontend_testing_coverage_goals:
+  description: "Test coverage goals specifically for frontend applications"
+  
+  component_test_coverage:
+    code_coverage_target: "85% overall, 95% for critical components"
+    focus_areas: "User interactions, state changes, conditional rendering"
+    exclusions: "Generated code, third-party components"
+    reporting: "Coverage reports generated with each build"
+    critical_components:
+      - "Authentication components"
+      - "Form components"
+      - "Data visualization components"
+      - "Navigation components"
+      - "Error handling components"
+  
+  integration_test_coverage:
+    user_flow_coverage: "100% of critical user flows"
+    api_interaction: "All API interactions tested"
+    error_handling: "Test error scenarios and recovery mechanisms"
+    focus_areas:
+      - "Form submissions"
+      - "Data fetching and rendering"
+      - "Authentication flows"
+      - "Navigation between routes"
+      - "State management across components"
+  
+  end_to_end_test_coverage:
+    user_journeys: "All critical user journeys covered"
+    ui_components: "All interactive UI elements tested"
+    cross_browser: "Test on supported browsers and devices"
+    accessibility: "Test compliance with accessibility standards"
+    performance: "Test loading times and responsiveness"
+
+frontend_testing_tools:
+  description: "Tools specifically for frontend testing"
+  
+  unit_and_component_testing:
+    frameworks:
+      - name: "Jest"
+        description: "JavaScript testing framework with a focus on simplicity"
+        use_cases: "Unit testing, component testing, snapshot testing"
+      - name: "Vitest"
+        description: "Vite-native testing framework with faster performance"
+        use_cases: "Unit testing, component testing in Vite projects"
+      - name: "React Testing Library"
+        description: "Testing utilities that encourage good testing practices"
+        use_cases: "Component testing focusing on user behavior"
+    
+    mocking:
+      - name: "Jest Mock Functions"
+        description: "Built-in mocking capabilities in Jest"
+        use_cases: "Mocking functions, modules, and timers"
+      - name: "Mock Service Worker (MSW)"
+        description: "API mocking library that uses service workers"
+        use_cases: "Mocking API requests at the network level"
+      - name: "React Hooks Testing Library"
+        description: "Testing utilities for React hooks"
+        use_cases: "Testing custom hooks in isolation"
+    
+    coverage:
+      - name: "Istanbul/nyc"
+        description: "Code coverage tool integrated with Jest"
+        use_cases: "Measuring test coverage and generating reports"
+  
+  integration_and_e2e_testing:
+    frameworks:
+      - name: "Cypress"
+        description: "End-to-end testing framework with a focus on developer experience"
+        use_cases: "Integration testing, end-to-end testing, component testing"
+      - name: "Playwright"
+        description: "Browser automation library for end-to-end testing"
+        use_cases: "Cross-browser testing, mobile testing, API testing"
+      - name: "Selenium"
+        description: "Browser automation tool for end-to-end testing"
+        use_cases: "Legacy systems, complex browser interactions"
+    
+    visual_testing:
+      - name: "Percy"
+        description: "Visual testing platform for catching visual regressions"
+        use_cases: "Visual regression testing, cross-browser visual testing"
+      - name: "Applitools"
+        description: "AI-powered visual testing platform"
+        use_cases: "Visual regression testing with AI-based comparison"
+      - name: "Chromatic"
+        description: "Visual testing platform integrated with Storybook"
+        use_cases: "Component visual testing, UI review workflows"
+    
+    accessibility:
+      - name: "axe-core"
+        description: "Accessibility testing engine"
+        use_cases: "Automated accessibility testing in unit and e2e tests"
+      - name: "Lighthouse"
+        description: "Google's tool for improving web page quality"
+        use_cases: "Performance, accessibility, SEO, and best practices audits"
+      - name: "WAVE"
+        description: "Web accessibility evaluation tool"
+        use_cases: "Manual accessibility testing and reporting"
+
+frontend_testing_best_practices:
+  description: "Best practices for frontend testing"
+  
+  test_organization:
+    - name: "Co-locate Tests with Components"
+      description: "Keep test files next to the components they test"
+      example: "Button.tsx and Button.test.tsx in the same directory"
+    
+    - name: "Use Descriptive Test Names"
+      description: "Write clear, descriptive test names that explain the expected behavior"
+      example: "test('should display error message when form is submitted with invalid email')"
+    
+    - name: "Group Related Tests"
+      description: "Use describe blocks to group related tests"
+      example: "describe('Form validation', () => { /* related tests */ })"
+    
+    - name: "Arrange-Act-Assert Pattern"
+      description: "Structure tests with clear arrangement, action, and assertion phases"
+      example: |
+        // Arrange
+        render(<Component />);
+        // Act
+        fireEvent.click(screen.getByRole('button'));
+        // Assert
+        expect(screen.getByText('Success')).toBeInTheDocument();
+  
+  testing_principles:
+    - name: "Test Behavior, Not Implementation"
+      description: "Focus on testing what the component does, not how it's implemented"
+      example: "Test that clicking a button shows a modal, not that a specific function was called"
+    
+    - name: "Use Role-Based Queries"
+      description: "Use role-based queries to find elements in the DOM"
+      example: "getByRole('button', { name: 'Submit' }) instead of getByTestId('submit-button')"
+    
+    - name: "Test User Interactions"
+      description: "Test how users interact with the component"
+      example: "fireEvent.click(button) or userEvent.type(input, 'text')"
+    
+    - name: "Test Edge Cases"
+      description: "Test edge cases and error scenarios"
+      example: "Empty states, error states, loading states, etc."
+    
+    - name: "Keep Tests Independent"
+      description: "Each test should be independent of others"
+      example: "Don't rely on state from previous tests"
+  
+  mocking_strategies:
+    - name: "Mock API Calls"
+      description: "Mock API calls to test different scenarios"
+      example: "Use MSW to mock successful and failed API responses"
+    
+    - name: "Mock Context Providers"
+      description: "Provide mock context values for testing"
+      example: "Wrap components in mock context providers with controlled values"
+    
+    - name: "Mock Browser APIs"
+      description: "Mock browser APIs like localStorage, fetch, etc."
+      example: "jest.spyOn(window, 'fetch').mockImplementation(() => Promise.resolve({ json: () => Promise.resolve(mockData) }))"
+    
+    - name: "Use Test Doubles"
+      description: "Use spies, stubs, and mocks appropriately"
+      example: "Use jest.fn() for simple mocks, jest.spyOn() for spies, and custom implementations for stubs"
+
+frontend_testing_workflow:
+  description: "Workflow for integrating testing into the development process"
+  
+  development_workflow:
+    - name: "Test-Driven Development (TDD)"
+      description: "Write tests before implementing features"
+      steps:
+        - "Write a failing test that describes the expected behavior"
+        - "Implement the minimum code to make the test pass"
+        - "Refactor the code while keeping tests passing"
+    
+    - name: "Continuous Integration"
+      description: "Run tests automatically on every commit"
+      steps:
+        - "Configure CI pipeline to run tests"
+        - "Fail the build if tests fail"
+        - "Generate and publish test coverage reports"
+    
+    - name: "Code Review"
+      description: "Include test review in code reviews"
+      checklist:
+        - "Are tests comprehensive and cover edge cases?"
+        - "Do tests focus on behavior rather than implementation details?"
+        - "Are tests maintainable and easy to understand?"
+        - "Is test coverage sufficient?"
+  
+  testing_pyramid:
+    - name: "Unit Tests"
+      description: "Many small, focused tests for individual functions and components"
+      proportion: "70% of tests"
+      characteristics: "Fast, isolated, easy to write and maintain"
+    
+    - name: "Integration Tests"
+      description: "Tests for interactions between components and services"
+      proportion: "20% of tests"
+      characteristics: "Medium speed, test multiple units working together"
+    
+    - name: "End-to-End Tests"
+      description: "Tests for complete user flows"
+      proportion: "10% of tests"
+      characteristics: "Slower, more complex, test the entire application"
+  
+  test_maintenance:
+    - name: "Regular Test Refactoring"
+      description: "Refactor tests along with code changes"
+      frequency: "With every significant code change"
+    
+    - name: "Test Flakiness Monitoring"
+      description: "Monitor and fix flaky tests"
+      approach: "Track test failures in CI, prioritize fixing flaky tests"
+    
+    - name: "Test Documentation"
+      description: "Document complex test setups and mocking strategies"
+      examples: "README files, inline comments, testing patterns documentation"

@@ -1,0 +1,403 @@
+title: "Cloudscape Components"
+description: "Overview of the AWS Cloudscape Design System and its components, along with instructions for accessing the full component library via the Cloudscape MCP server."
+
+overview: |
+  AWS Cloudscape Design System is a collection of reusable components and design guidelines for building intuitive, responsive, and accessible user experiences for AWS web applications. It provides a consistent look and feel across AWS web applications and helps developers build high-quality user interfaces quickly and efficiently.
+
+key_features:
+  - name: "Consistent Design"
+    description: "Cloudscape provides a consistent design language across AWS web applications."
+  - name: "Accessibility"
+    description: "Cloudscape components are designed to be accessible to all users, including those with disabilities."
+  - name: "Responsive Design"
+    description: "Cloudscape components are designed to work well on all screen sizes."
+  - name: "Theming"
+    description: "Cloudscape supports theming through design tokens."
+  - name: "Internationalization"
+    description: "Cloudscape supports internationalization and localization."
+  - name: "Documentation"
+    description: "Cloudscape provides comprehensive documentation for all components."
+
+commonly_used_components:
+  - name: "AppLayout"
+    description: "Provides a standard application layout with navigation, content, and tools panels."
+    example: |
+      import AppLayout from "@cloudscape-design/components/app-layout";
+
+      <AppLayout
+        navigation={<div>Navigation</div>}
+        content={<div>Main Content</div>}
+        tools={<div>Tools Panel</div>}
+      />
+
+  - name: "Table"
+    description: "Displays tabular data with sorting, filtering, and pagination."
+    example: |
+      import Table from "@cloudscape-design/components/table";
+
+      <Table
+        columnDefinitions={[
+          {
+            id: "name",
+            header: "Name",
+            cell: item => item.name
+          },
+          {
+            id: "type",
+            header: "Type",
+            cell: item => item.type
+          }
+        ]}
+        items={[
+          { name: "Item 1", type: "Type 1" },
+          { name: "Item 2", type: "Type 2" }
+        ]}
+      />
+
+  - name: "Form"
+    description: "Container for form controls with validation."
+    example: |
+      import Form from "@cloudscape-design/components/form";
+
+      <Form
+        header={<h1>Form Header</h1>}
+        actions={<div>Form Actions</div>}
+      >
+        <div>Form Content</div>
+      </Form>
+
+  - name: "Button"
+    description: "Triggers actions with various styles and sizes."
+    example: |
+      import Button from "@cloudscape-design/components/button";
+
+      <Button
+        variant="primary"
+        onClick={() => console.log("Button clicked")}
+      >
+        Submit
+      </Button>
+
+  - name: "Container"
+    description: "Groups related content with headers and optional actions."
+    example: |
+      import Container from "@cloudscape-design/components/container";
+
+      <Container
+        header={<h2>Container Header</h2>}
+      >
+        <div>Container Content</div>
+      </Container>
+
+  - name: "Header"
+    description: "Displays a heading with optional actions."
+    example: |
+      import Header from "@cloudscape-design/components/header";
+
+      <Header
+        actions={<div>Header Actions</div>}
+      >
+        Header Title
+      </Header>
+
+  - name: "SpaceBetween"
+    description: "Adds equal spacing between children."
+    example: |
+      import SpaceBetween from "@cloudscape-design/components/space-between";
+
+      <SpaceBetween size="m">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+      </SpaceBetween>
+
+  - name: "Grid"
+    description: "Responsive layout grid system."
+    example: |
+      import Grid from "@cloudscape-design/components/grid";
+
+      <Grid
+        gridDefinition={[
+          { colspan: 6 },
+          { colspan: 6 }
+        ]}
+      >
+        <div>Column 1</div>
+        <div>Column 2</div>
+      </Grid>
+
+  - name: "Cards"
+    description: "Displays content in card format."
+    example: |
+      import Cards from "@cloudscape-design/components/cards";
+
+      <Cards
+        cardDefinition={{
+          header: item => item.name,
+          sections: [
+            {
+              id: "description",
+              header: "Description",
+              content: item => item.description
+            }
+          ]
+        }}
+        items={[
+          { name: "Item 1", description: "Description 1" },
+          { name: "Item 2", description: "Description 2" }
+        ]}
+      />
+
+  - name: "Alert"
+    description: "Displays messages with different severity levels."
+    example: |
+      import Alert from "@cloudscape-design/components/alert";
+
+      <Alert
+        type="success"
+        header="Success"
+      >
+        Operation completed successfully.
+      </Alert>
+
+  - name: "Tabs"
+    description: "Organizes content into multiple tabs."
+    example: |
+      import Tabs from "@cloudscape-design/components/tabs";
+
+      <Tabs
+        tabs={[
+          {
+            label: "Tab 1",
+            id: "tab1",
+            content: <div>Tab 1 Content</div>
+          },
+          {
+            label: "Tab 2",
+            id: "tab2",
+            content: <div>Tab 2 Content</div>
+          }
+        ]}
+      />
+
+  - name: "Modal"
+    description: "Displays content in a modal dialog."
+    example: |
+      import Modal from "@cloudscape-design/components/modal";
+
+      <Modal
+        visible={true}
+        header="Modal Header"
+        onDismiss={() => {}}
+      >
+        <div>Modal Content</div>
+      </Modal>
+
+  - name: "Select"
+    description: "Dropdown selection component."
+    example: |
+      import Select from "@cloudscape-design/components/select";
+
+      <Select
+        options={[
+          { label: "Option 1", value: "1" },
+          { label: "Option 2", value: "2" }
+        ]}
+        selectedOption={{ label: "Option 1", value: "1" }}
+        onChange={({ detail }) => {}}
+      />
+
+  - name: "Input"
+    description: "Text input field."
+    example: |
+      import Input from "@cloudscape-design/components/input";
+
+      <Input
+        value=""
+        onChange={({ detail }) => {}}
+      />
+
+  - name: "Pagination"
+    description: "Enables navigation through paginated content."
+    example: |
+      import Pagination from "@cloudscape-design/components/pagination";
+
+      <Pagination
+        currentPageIndex={1}
+        pagesCount={5}
+        onNextPageClick={() => {}}
+        onPreviousPageClick={() => {}}
+      />
+
+accessing_component_library:
+  description: "The frontend-code mode provides access to the full Cloudscape component library via the Cloudscape MCP server."
+  tools:
+    - name: "Search Components"
+      description: "Use the search_components tool to search for Cloudscape components."
+      example: |
+        <use_mcp_tool>
+        <server_name>cloudscape</server_name>
+        <tool_name>search_components</tool_name>
+        <arguments>
+        {
+          "query": "table",
+          "category": "display",
+          "limit": 5
+        }
+        </arguments>
+        </use_mcp_tool>
+
+    - name: "Get Component Details"
+      description: "Use the get_component_details tool to get detailed information about a component."
+      example: |
+        <use_mcp_tool>
+        <server_name>cloudscape</server_name>
+        <tool_name>get_component_details</tool_name>
+        <arguments>
+        {
+          "componentId": "table"
+        }
+        </arguments>
+        </use_mcp_tool>
+
+    - name: "Generate Component Code"
+      description: "Use the generate_component_code tool to generate code for a component."
+      example: |
+        <use_mcp_tool>
+        <server_name>cloudscape</server_name>
+        <tool_name>generate_component_code</tool_name>
+        <arguments>
+        {
+          "componentId": "table",
+          "props": {
+            "columnDefinitions": [
+              {
+                "id": "name",
+                "header": "Name",
+                "cell": "item => item.name"
+              },
+              {
+                "id": "type",
+                "header": "Type",
+                "cell": "item => item.type"
+              }
+            ],
+            "items": "items"
+          }
+        }
+        </arguments>
+        </use_mcp_tool>
+
+    - name: "Generate Pattern Code"
+      description: "Use the generate_pattern_code tool to generate code for a common pattern."
+      example: |
+        <use_mcp_tool>
+        <server_name>cloudscape</server_name>
+        <tool_name>generate_pattern_code</tool_name>
+        <arguments>
+        {
+          "patternId": "data-table",
+          "customizations": {
+            "columnDefinitions": [
+              {
+                "id": "name",
+                "header": "Name",
+                "cell": "item => item.name"
+              },
+              {
+                "id": "type",
+                "header": "Type",
+                "cell": "item => item.type"
+              }
+            ],
+            "items": "items"
+          }
+        }
+        </arguments>
+        </use_mcp_tool>
+
+    - name: "Get Component Examples"
+      description: "Use the get_component_examples tool to get usage examples for a component."
+      example: |
+        <use_mcp_tool>
+        <server_name>cloudscape</server_name>
+        <tool_name>get_component_examples</tool_name>
+        <arguments>
+        {
+          "componentId": "table",
+          "type": "basic",
+          "limit": 3
+        }
+        </arguments>
+        </use_mcp_tool>
+
+    - name: "Access Component Documentation"
+      description: "Use the access_mcp_resource tool to access component documentation."
+      example: |
+        <access_mcp_resource>
+        <server_name>cloudscape</server_name>
+        <uri>cloudscape://components/table</uri>
+        </access_mcp_resource>
+
+best_practices:
+  - name: "Use the Component Registry"
+    description: "The Component Registry provides comprehensive information about all Cloudscape components. Use it to find the right component for your needs."
+
+  - name: "Leverage Code Generation"
+    description: "The Code Generator can save you time by generating code for common patterns. Use it to quickly implement complex UI components."
+
+  - name: "Consult Documentation"
+    description: "The Documentation Provider offers detailed information about component usage, best practices, and accessibility considerations. Consult it when you're unsure about how to use a component."
+
+  - name: "Explore Examples"
+    description: "The Example Provider offers usage examples for components. Explore them to learn how to use components effectively."
+
+  - name: "Follow Accessibility Guidelines"
+    description: "Cloudscape components are designed to be accessible. Follow the accessibility guidelines to ensure your UI is accessible to all users."
+
+  - name: "Use Responsive Design"
+    description: "Cloudscape components are designed to be responsive. Use responsive design patterns to ensure your UI works well on all devices."
+
+  - name: "Optimize Performance"
+    description: "Follow performance best practices to ensure your UI is fast and responsive."
+
+common_patterns:
+  description: "The Cloudscape MCP Server provides code generation capabilities for common Cloudscape patterns."
+  patterns:
+    - name: "Data Tables"
+      description: "Tables with sorting, filtering, and pagination."
+
+    - name: "Form Layouts"
+      description: "Forms with validation and error handling."
+
+    - name: "Application Layouts"
+      description: "Standard application layouts with navigation, content, and tools panels."
+
+    - name: "Card Layouts"
+      description: "Card-based layouts for displaying collections of items."
+
+    - name: "Dashboard Layouts"
+      description: "Dashboard layouts with multiple widgets and visualizations."
+
+    - name: "Wizard Flows"
+      description: "Step-by-step wizard flows for complex processes."
+
+    - name: "Split Panels"
+      description: "Split panel layouts for side-by-side content."
+
+    - name: "Detail Pages"
+      description: "Detail pages with header, content, and actions."
+
+    - name: "List Pages"
+      description: "List pages with filtering, sorting, and pagination."
+
+    - name: "Navigation Patterns"
+      description: "Navigation patterns with breadcrumbs, tabs, and side navigation."
+
+resources:
+  - name: "Cloudscape Design System Website"
+    url: "https://cloudscape.design/"
+  - name: "Cloudscape Design System Documentation"
+    url: "https://cloudscape.design/components/"
+  - name: "Cloudscape Design System GitHub Repository"
+    url: "https://github.com/cloudscape-design/components"

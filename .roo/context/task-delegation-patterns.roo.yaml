@@ -153,6 +153,134 @@ example_delegations:
       </message>
       </new_task>
 
+  - name: "Architect to Frontend Code Mode"
+    example: |
+      <new_task>
+      <mode>frontend-code</mode>
+      <message>
+      # Task: Implement Dashboard UI with Cloudscape Components
+      
+      ## Rules
+      Follow all the rules for Frontend Code mode, found in markdown files in the folder .roo/rules-frontend-code.
+      
+      ## Context
+      We've designed a new dashboard for our application using AWS Cloudscape Design System. The architecture and data flow have been defined in the decision-records.roo.md file. The UI mockups are available in the design system. The backend API endpoints are already implemented and documented in the API specification.
+      
+      ## Objective
+      Implement the dashboard UI using Cloudscape components, with proper TypeScript typing, responsive design, and comprehensive tests.
+      
+      ## Requirements
+      - Must use AWS Cloudscape Design System components
+      - Must implement with React and TypeScript following best practices
+      - Must be fully responsive on all device sizes
+      - Must implement proper loading states, error handling, and empty states
+      - Must be accessible according to WCAG 2.1 AA standards
+      - Must include comprehensive tests
+      
+      ## Deliverables
+      - Dashboard page component
+      - Supporting UI components (cards, tables, charts, etc.)
+      - Integration with backend API
+      - Unit and integration tests
+      - Documentation of component usage and props
+      
+      ## Success Criteria
+      - Dashboard UI matches the design mockups
+      - All components are properly typed with TypeScript
+      - UI is responsive on all device sizes
+      - Tests pass with >90% coverage
+      - Accessibility audit passes with no major issues
+      - Code follows project standards and patterns
+      
+      ## Next Steps
+      After implementation, Debug mode will verify the dashboard functionality and performance.
+      </message>
+      </new_task>
+
+  - name: "Code to Frontend Code Mode"
+    example: |
+      <new_task>
+      <mode>frontend-code</mode>
+      <message>
+      # Task: Refactor Form Components to Use Cloudscape
+      
+      ## Rules
+      Follow all the rules for Frontend Code mode, found in markdown files in the folder .roo/rules-frontend-code.
+      
+      ## Context
+      Our application currently uses custom form components that don't follow a consistent design system. We've decided to standardize on AWS Cloudscape Design System for all UI components. The backend API endpoints and validation logic remain unchanged.
+      
+      ## Objective
+      Refactor the existing form components to use Cloudscape components, maintaining the same functionality but improving the UI consistency, accessibility, and maintainability.
+      
+      ## Requirements
+      - Replace custom form components with Cloudscape equivalents
+      - Maintain existing form validation logic
+      - Ensure backward compatibility with existing form data structures
+      - Improve accessibility and responsive behavior
+      - Add comprehensive tests for the refactored components
+      
+      ## Deliverables
+      - Refactored form components using Cloudscape
+      - Updated form validation integration
+      - Unit and integration tests
+      - Documentation of the refactored components
+      
+      ## Success Criteria
+      - Forms maintain the same functionality as before
+      - UI is consistent with other Cloudscape components
+      - Forms are accessible according to WCAG 2.1 AA standards
+      - Tests pass with >90% coverage
+      - No regression in form validation or submission
+      
+      ## Next Steps
+      After refactoring, Debug mode will verify the form functionality and test edge cases.
+      </message>
+      </new_task>
+
+  - name: "Boomerang to Frontend Code Mode"
+    example: |
+      <new_task>
+      <mode>frontend-code</mode>
+      <message>
+      # Task: Implement Data Visualization Components
+      
+      ## Rules
+      Follow all the rules for Frontend Code mode, found in markdown files in the folder .roo/rules-frontend-code.
+      
+      ## Context
+      We need to add data visualization capabilities to our application to help users understand their metrics better. The backend API endpoints for retrieving the necessary data are already implemented. We've decided to use AWS Cloudscape Design System for the UI components and a charting library compatible with React.
+      
+      ## Objective
+      Implement a set of reusable data visualization components that integrate with our existing application and follow best practices for React, TypeScript, and Cloudscape.
+      
+      ## Requirements
+      - Create reusable chart components (line, bar, pie, etc.)
+      - Integrate with Cloudscape Design System
+      - Implement proper loading states, error handling, and empty states
+      - Ensure components are responsive and accessible
+      - Add comprehensive tests for all components
+      - Optimize performance for large datasets
+      
+      ## Deliverables
+      - Reusable chart components
+      - Integration examples with existing pages
+      - Unit and integration tests
+      - Documentation of component usage and props
+      - Performance optimization recommendations
+      
+      ## Success Criteria
+      - Charts render correctly with various data inputs
+      - Components integrate seamlessly with Cloudscape
+      - UI is responsive and accessible
+      - Tests pass with >90% coverage
+      - Performance is acceptable with large datasets
+      
+      ## Next Steps
+      After implementation, Debug mode will verify the visualization components and test with various data scenarios.
+      </message>
+      </new_task>
+
 best_practices:
   clarity_and_specificity:
     - "Be explicit about what needs to be done"

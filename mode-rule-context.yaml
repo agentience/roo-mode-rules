@@ -27,3 +27,11 @@ modes:
       - .roo/context/mcp-server-relevance.roo.yaml
       - .roo/context/task-delegation-patterns.roo.yaml
       - .roo/context/workflow-orchestration.roo.yaml
+  frontend-code:
+    context:
+      - .roo/context/cloudscape-components.roo.yaml
+      - .roo/context/code-patterns.roo.yaml
+      - .roo/context/jira-management.roo.yaml
+      - .roo/context/memory-bank-code.yaml
+      - .roo/context/testing-strategy.roo.yaml
+

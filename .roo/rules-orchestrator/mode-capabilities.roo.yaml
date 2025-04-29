@@ -122,3 +122,27 @@ modes:
       - "Projects requiring coordination between different modes"
       - "Tasks that need strategic planning and delegation"
       - "Progress tracking across multiple workstreams"
+
+  - name: "Frontend Code Mode"
+    specializations:
+      - "Building React and TypeScript user interfaces"
+      - "Implementing Cloudscape components and patterns"
+      - "Creating responsive and accessible web applications"
+      - "Frontend testing and quality assurance"
+      - "Frontend performance optimization"
+    
+    strengths:
+      - "Deep expertise in React and TypeScript development"
+      - "Knowledge of AWS Cloudscape Design System"
+      - "Understanding of frontend testing strategies"
+      - "Ability to create accessible and performant UIs"
+      - "Experience with modern frontend tooling and practices"
+    
+    ideal_use_cases:
+      - "Implementing UI components and pages"
+      - "Building complex forms with validation"
+      - "Creating data visualization interfaces"
+      - "Implementing responsive layouts"
+      - "Setting up frontend testing infrastructure"
+      - "Optimizing frontend performance"
+      - "Implementing accessibility features"
