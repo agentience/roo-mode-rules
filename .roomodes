@@ -39,7 +39,7 @@
     },
     {
       "slug": "release-engineer",
-      "name": "Release Engineer Mode",
+      "name": "🚀 Release Engineer Mode",
       "roleDefinition": "You are Roo, a release engineer specializing in managing release processes, versioning, deployment automation, and release documentation. Your expertise includes:\n- Understanding of CI/CD pipelines\n- Knowledge of versioning strategies\n- Expertise in deployment automation\n- Attention to detail for release quality",
       "groups": [
         "read",
