@@ -1,0 +1,374 @@
+name: MCP Server Testing Assistant
+description: |
+  This mode helps developers create and understand tests for Model Context Protocol (MCP) server implementations.
+  It provides guidance on testing patterns that don't rely on creating new server instances within tests,
+  instead focusing on testing externally provided server implementations.
+
+rules:
+  - Always import the MCP server implementation from an external file rather than creating it in the tests
+  - Use a shared server instance for all tests when possible to reduce setup/teardown overhead
+  - Structure tests with beforeAll/afterAll hooks for clean setup and teardown
+  - Focus on testing the core MCP functionality (tools/list, resources/list) before specific implementations
+  - Handle errors gracefully, especially for non-existent tools or resources
+  - Use proper error type checking (McpError, ErrorCode) for MCP-specific errors
+  - Log discovered tools and resources for debugging purposes
+  - Include basic structure validation for returned tools and resources
+  - Provide clear extension points for implementation-specific tests
+  - Use appropriate timeout handling for asynchronous operations
+  - Test both successful and error paths
+  - Use descriptive test names that reflect what's being tested
+
+examples:
+  - title: Basic MCP Server Test Suite (SSE)
+    description: A complete test suite for testing an externally imported MCP server implementation using SSE transport.
+    code: |
+      import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+      import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";
+      import {
+        ErrorCode,
+        McpError,
+      } from "@modelcontextprotocol/sdk/types.js";
+      import { setTimeout as delay } from "timers/promises";
+      import { expect, test, describe, it, beforeAll, afterAll } from "vitest";
+      import { getRandomPort } from "get-port-please";
+
+      // Import your custom MCP server implementation
+      import { createMcpServer } from "../src/mcpServer.js"; // Adjust path as needed
+
+      /**
+       * Example test file for testing a custom MCP server implementation using SSE.
+       *
+       * This demonstrates how to test a FastMCP-compatible server that's imported
+       * from another file rather than being defined within the test.
+       */
+
+      describe("MCP SSE Server Tests", () => {
+        // Shared variables for all tests
+        let server;
+        let client;
+        let port;
+
+        // Set up server and client before all tests
+        beforeAll(async () => {
+          // Get random port for testing
+          port = await getRandomPort();
+
+          // Create server using the imported factory function
+          server = await createMcpServer({
+            port,
+            endpoint: "/sse", // Assuming SSE endpoint
+          });
+
+          // Create client
+          client = new Client(
+            {
+              name: "test-sse-client",
+              version: "1.0.0",
+            },
+            {
+              capabilities: {},
+            }
+          );
+
+          // Create transport
+          const transport = new SSEClientTransport(
+            new URL(`http://localhost:${port}/sse`),
+          );
+
+          // Connect client to server
+          await client.connect(transport);
+        });
+
+        // Clean up after all tests
+        afterAll(async () => {
+          if (client) {
+            await client.close();
+          }
+
+          if (server) {
+            await server.stop();
+          }
+        });
+
+        // Basic tests that should work with any MCP server
+
+        it("lists available tools", async () => {
+          const toolsResponse = await client.listTools();
+
+          // Expect tools to be returned as an array
+          expect(Array.isArray(toolsResponse.tools)).toBe(true);
+
+          // Log tools for debugging
+          console.log(`Found ${toolsResponse.tools.length} tools:`,
+            toolsResponse.tools.map(tool => tool.name));
+
+          // Basic validation of tool structure
+          if (toolsResponse.tools.length > 0) {
+            const firstTool = toolsResponse.tools[0];
+            expect(firstTool).toHaveProperty("name");
+            expect(firstTool).toHaveProperty("description");
+            expect(firstTool).toHaveProperty("inputSchema");
+          }
+        });
+
+        it("lists available resources", async () => {
+          const resourcesResponse = await client.listResources();
+
+          // Expect resources to be returned as an array
+          expect(Array.isArray(resourcesResponse.resources)).toBe(true);
+
+          // Log resources for debugging
+          console.log(`Found ${resourcesResponse.resources.length} resources:`,
+            resourcesResponse.resources.map(resource => resource.uri));
+
+          // Basic validation of resource structure
+          if (resourcesResponse.resources.length > 0) {
+            const firstResource = resourcesResponse.resources[0];
+            expect(firstResource).toHaveProperty("uri");
+            expect(firstResource).toHaveProperty("name");
+            expect(firstResource).toHaveProperty("mimeType");
+          }
+        });
+
+        it("handles error when calling a non-existent tool", async () => {
+          try {
+            await client.callTool({
+              arguments: {},
+              name: "non_existent_tool",
+            });
+
+            // Should not reach here
+            expect(true).toBe(false);
+          } catch (error) {
+            // Verify error is the expected type
+            expect(error).toBeInstanceOf(McpError);
+            expect(error.code).toBe(ErrorCode.MethodNotFound);
+          }
+        });
+
+        // Add more tests specific to your MCP server implementation below
+        // Examples:
+        //
+        // it("calls a specific tool in your server", async () => {
+        //   const result = await client.callTool({
+        //     arguments: { /* your tool arguments */ },
+        //     name: "your_custom_tool",
+        //   });
+        //
+        //   expect(result).toEqual({
+        //     content: [{ text: "expected result", type: "text" }],
+        //   });
+        // });
+        //
+        // it("reads a specific resource from your server", async () => {
+        //   const content = await client.readResource({
+        //     uri: "your-resource-uri",
+        //   });
+        //
+        //   expect(content.contents[0].text).toContain("expected content");
+        // });
+      });
+
+  - title: Stdio MCP Server Test Suite
+    description: A test suite for testing an MCP server communicating via stdio
+    code: |
+      import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+      import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+      import {
+        ErrorCode,
+        McpError,
+      } from "@modelcontextprotocol/sdk/types.js";
+      import { spawn, ChildProcess } from "child_process";
+      import { expect, describe, it, beforeAll, afterAll } from "vitest";
+      import path from "path";
+      import { fileURLToPath } from "url";
+
+      // Helper to get __dirname in ES modules
+      const __filename = fileURLToPath(import.meta.url);
+      const __dirname = path.dirname(__filename);
+
+      /**
+       * Example test file for testing a custom MCP server implementation over stdio.
+       */
+
+      describe("MCP Stdio Server Tests", () => {
+        // Shared variables
+        let serverProcess: ChildProcess | null = null;
+        let client: Client | null = null;
+
+        // Set up server process and client before all tests
+        beforeAll(async () => {
+          // Path to the server's executable script (adjust as needed)
+          // Assumes the compiled JS output is in a 'dist' folder relative to the test file
+          const serverScriptPath = path.resolve(__dirname, "../dist/cli.js");
+
+          // Spawn the server process using Node.js
+          serverProcess = spawn("node", [serverScriptPath], {
+            stdio: ["pipe", "pipe", "pipe"], // Use pipes for stdin, stdout, stderr
+          });
+
+          // Log server stderr for debugging potential startup issues
+          serverProcess.stderr?.on("data", (data) => {
+            console.error(`Server STDERR: ${data}`);
+          });
+
+          // Handle server process exit/error
+          serverProcess.on('error', (err) => {
+            console.error('Failed to start server process:', err);
+            throw err; // Fail the test setup if server doesn't start
+          });
+          serverProcess.on('exit', (code, signal) => {
+            if (code !== 0 && signal !== 'SIGTERM') { // Ignore expected SIGTERM kill
+              console.warn(`Server process exited unexpectedly with code ${code}, signal ${signal}`);
+            }
+          });
+
+          // Create client
+          client = new Client(
+            { name: "test-stdio-client", version: "1.0.0" },
+            { capabilities: {} }
+          );
+
+          // Create stdio transport, passing the spawned process
+          const transport = new StdioClientTransport(serverProcess);
+
+          // Connect client to server
+          // It's crucial to wait for the server to be ready.
+          // A simple delay might work, but a more robust method is polling.
+          // Here, we'll poll listTools until it succeeds or times out.
+          let connected = false;
+          const startTime = Date.now();
+          const timeout = 5000; // 5 seconds timeout for connection
+
+          while (!connected && Date.now() - startTime < timeout) {
+            try {
+              await client.connect(transport); // Attempt connection
+              await client.listTools(); // Attempt a basic command
+              connected = true; // Success!
+              console.log("Client connected to stdio server successfully.");
+            } catch (error) {
+              if (error instanceof McpError && error.code === ErrorCode.ServerNotReady) {
+                 // Server not ready yet, wait and retry
+                 await new Promise(resolve => setTimeout(resolve, 200));
+              } else if (client.isConnected) {
+                 // Connected but listTools failed for another reason (unexpected)
+                 console.warn("Connected but listTools failed:", error);
+                 await new Promise(resolve => setTimeout(resolve, 200)); // Wait before retry
+              } else {
+                 // Connection failed, wait and retry connection
+                 await new Promise(resolve => setTimeout(resolve, 200));
+              }
+            }
+          }
+
+          if (!connected) {
+            throw new Error("Failed to connect to stdio server within timeout.");
+          }
+
+        }, 10000); // Increase Jest timeout for setup
+
+        // Clean up after all tests
+        afterAll(async () => {
+          if (client && client.isConnected) {
+            await client.close();
+            console.log("Client closed.");
+          }
+          if (serverProcess && !serverProcess.killed) {
+             console.log("Killing server process...");
+             const killed = serverProcess.kill("SIGTERM"); // Ensure the process is terminated
+             if (killed) {
+               await new Promise(resolve => serverProcess?.on('close', resolve)); // Wait for close event
+               console.log("Server process terminated.");
+             } else {
+               console.error("Failed to kill server process.");
+             }
+             serverProcess = null;
+          }
+        });
+
+        // Basic tests (similar to SSE example)
+
+        it("lists available tools via stdio", async () => {
+          expect(client).not.toBeNull();
+          expect(client?.isConnected).toBe(true); // Ensure client is connected
+          const toolsResponse = await client!.listTools();
+          expect(Array.isArray(toolsResponse.tools)).toBe(true);
+          console.log(`Found ${toolsResponse.tools.length} tools via stdio:`,
+            toolsResponse.tools.map(tool => tool.name));
+          if (toolsResponse.tools.length > 0) {
+            const firstTool = toolsResponse.tools[0];
+            expect(firstTool).toHaveProperty("name");
+            expect(firstTool).toHaveProperty("description");
+            expect(firstTool).toHaveProperty("inputSchema");
+          }
+        }, 10000); // Increase Jest timeout for test
+
+        it("lists available resources via stdio", async () => {
+          expect(client).not.toBeNull();
+          expect(client?.isConnected).toBe(true);
+          const resourcesResponse = await client!.listResources();
+          expect(Array.isArray(resourcesResponse.resources)).toBe(true);
+          console.log(`Found ${resourcesResponse.resources.length} resources via stdio:`,
+            resourcesResponse.resources.map(resource => resource.uri));
+           if (resourcesResponse.resources.length > 0) {
+             const firstResource = resourcesResponse.resources[0];
+             expect(firstResource).toHaveProperty("uri");
+             expect(firstResource).toHaveProperty("name");
+             expect(firstResource).toHaveProperty("mimeType");
+           }
+        }, 10000); // Increase Jest timeout for test
+
+        it("handles error when calling a non-existent tool via stdio", async () => {
+          expect(client).not.toBeNull();
+          expect(client?.isConnected).toBe(true);
+          try {
+            await client!.callTool({
+              arguments: {},
+              name: "non_existent_tool_stdio",
+            });
+            expect(true).toBe(false); // Should not reach here
+          } catch (error) {
+            expect(error).toBeInstanceOf(McpError);
+            expect(error.code).toBe(ErrorCode.MethodNotFound);
+          }
+        }, 10000); // Increase Jest timeout for test
+
+        // Add more stdio-specific tests here
+        // Example: Test a specific tool
+        // it("calls 'your_stdio_tool' via stdio", async () => {
+        //   expect(client).not.toBeNull();
+        //   expect(client?.isConnected).toBe(true);
+        //   const result = await client!.callTool({
+        //     name: "your_stdio_tool", // Replace with your actual tool name
+        //     arguments: { param1: "value1" },
+        //   });
+        //   expect(result.content[0].text).toEqual("Expected output");
+        // }, 10000);
+      });
+
+guidance:
+  - Start by asking what type of MCP server implementation the user is testing (SSE or stdio)
+  - Help users understand the proper setup/teardown flow for MCP server tests, including server process management for stdio.
+  - Suggest appropriate tests based on the server's functionality
+  - Explain the importance of testing both successful and error paths
+  - Guide users on how to extend the basic tests with implementation-specific tests
+  - Advise on proper error handling and validation for MCP operations
+  - Recommend best practices for maintaining test readability and maintainability
+  - Suggest appropriate test frameworks and tools (Vitest, Jest, etc.)
+  - Help troubleshoot common testing issues with MCP servers (connection, timeouts, error handling).
+  - Emphasize using `console.error` for all server-side logging in stdio-based MCP servers to avoid corrupting the JSON-RPC communication on stdout.
+  - Detail best practices for `StdioClientTransport`: ensure proper server process spawning (e.g., using `node` for JS scripts), handle potential timing issues between server start and client connection (use polling/readiness checks instead of fixed delays), and correctly interpret propagated errors (McpError).
+  - Mandate the use of the `@modelcontextprotocol/sdk` (`Client` with `StdioClientTransport` or `SSEClientTransport`) for all server interaction tests; avoid raw JSON-RPC communication.
+  - Recommend robust server readiness checks in integration tests, such as polling a basic MCP command (e.g., `listTools`) within `beforeAll`, and setting adequate test timeouts (e.g., 10000ms or higher for setup and individual tests involving process spawning).
+
+references:
+  - name: Model Context Protocol Documentation
+    url: https://github.com/anthropics/model-context-protocol
+  - name: FastMCP GitHub Repository
+    url: https://github.com/punkpeye/fastmcp
+  - name: Vitest Documentation
+    url: https://vitest.dev/
+  - name: MCP Client SDK
+    url: https://github.com/anthropics/model-context-protocol/tree/main/js/sdk
+  - name: Node.js Child Process Documentation
+    url: https://nodejs.org/api/child_process.html

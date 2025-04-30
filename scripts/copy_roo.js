@@ -88,40 +88,6 @@ function addToHistory(dirPath) {
   }
 }
 
-// Handle playback mode
-if (playbackMode) {
-  const history = readHistoryFile();
-  
-  if (history.length === 0) {
-    console.log('No copy history found. Please run the script with a target directory first.');
-    process.exit(0);
-  }
-  
-  console.log(`Found ${history.length} destination(s) in copy history.`);
-  
-  // Process each path in history
-  for (const dir of history) {
-    console.log(`\nProcessing destination: ${dir}`);
-    if (!fs.existsSync(dir) || !fs.statSync(dir).isDirectory()) {
-      console.error(`Warning: Directory '${dir}' does not exist or is not accessible. Skipping.`);
-      continue;
-    }
-    
-    processCopy(dir, false); // Don't add to history during playback
-  }
-  
-  console.log('\nPlayback completed successfully!');
-  process.exit(0);
-} else {
-  // For non-playback mode, ensure target directory is provided
-  if (!targetDir) {
-    console.error('Error: Target directory not specified.');
-    console.error('Usage: node scripts/copy_roo.js <target_directory>');
-    console.error('       node scripts/copy_roo.js -p (or --playback) to copy to all previously used directories');
-    console.error('       node scripts/copy_roo.js (with no arguments) defaults to playback mode');
-    process.exit(1);
-  }
-
 // Process the copy operation for a single target directory
 function processCopy(targetDir, addToHistoryFlag = true) {
   // Check if target directory exists
@@ -267,6 +233,40 @@ function processCopy(targetDir, addToHistoryFlag = true) {
     return false;
   }
 }
+
+// Handle playback mode
+if (playbackMode) {
+  const history = readHistoryFile();
+  
+  if (history.length === 0) {
+    console.log('No copy history found. Please run the script with a target directory first.');
+    process.exit(0);
+  }
+  
+  console.log(`Found ${history.length} destination(s) in copy history.`);
+  
+  // Process each path in history
+  for (const dir of history) {
+    console.log(`\nProcessing destination: ${dir}`);
+    if (!fs.existsSync(dir) || !fs.statSync(dir).isDirectory()) {
+      console.error(`Warning: Directory '${dir}' does not exist or is not accessible. Skipping.`);
+      continue;
+    }
+    
+    processCopy(dir, false); // Don't add to history during playback
+  }
+  
+  console.log('\nPlayback completed successfully!');
+  process.exit(0);
+} else {
+  // For non-playback mode, ensure target directory is provided
+  if (!targetDir) {
+    console.error('Error: Target directory not specified.');
+    console.error('Usage: node scripts/copy_roo.js <target_directory>');
+    console.error('       node scripts/copy_roo.js -p (or --playback) to copy to all previously used directories');
+    console.error('       node scripts/copy_roo.js (with no arguments) defaults to playback mode');
+    process.exit(1);
+  }
 
   // Execute copy for the specified target directory
   const success = processCopy(targetDir);

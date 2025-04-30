@@ -325,6 +325,46 @@ example_delegations:
       </message>
       </new_task>
 
+  - name: "Code to FastMCP Test Engineer Mode"
+    example: |
+      <new_task>
+      <mode>fastmcp-test-engineer</mode>
+      <message>
+      # Task: Create Integration Tests for New MCP Tool
+
+      ## Rules
+      Follow all the rules for FastMCP Test Engineer mode, found in markdown files in the folder .roo/rules-fastmcp-test-engineer and context files in .roo/context/fastmcp-ts-testing.roo.yaml.
+
+      ## Context
+      Code mode has just implemented a new tool `calculate_metrics` for the `data-analysis-server` MCP server (TypeScript implementation). The tool takes numerical data and returns statistical metrics. The server code is located in `mcp-servers/data-analysis-server/`.
+
+      ## Objective
+      Develop a comprehensive suite of integration tests for the new `calculate_metrics` tool using FastMCP's testing utilities.
+
+      ## Requirements
+      - Test various valid input scenarios (different data types, sizes).
+      - Test edge cases (empty input, invalid data types).
+      - Test error handling for expected failures.
+      - Utilize FastMCP's in-process testing features.
+      - Ensure tests cover tool input validation and output correctness.
+      - Integrate tests into the existing test suite (`npm test`).
+
+      ## Deliverables
+      - Integration test file(s) for the `calculate_metrics` tool.
+      - Updated `package.json` if necessary to run new tests.
+      - Documentation within the test files explaining the scenarios.
+
+      ## Success Criteria
+      - Tests cover all specified requirements.
+      - Tests pass reliably in the CI environment.
+      - Test coverage for the new tool meets project standards (>85%).
+      - Tests are well-structured and maintainable.
+
+      ## Next Steps
+      Once tests are implemented and passing, the MCP server can be considered ready for integration with other components or deployment. Debug mode may perform further end-to-end validation.
+      </message>
+      </new_task>
+
 best_practices:
   clarity_and_specificity:
     - "Be explicit about what needs to be done"

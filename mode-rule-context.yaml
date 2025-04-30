@@ -34,4 +34,6 @@ modes:
       - .roo/context/jira-management.roo.yaml
       - .roo/context/memory-bank-code.yaml
       - .roo/context/testing-strategy.roo.yaml
-
+  fastmcp-test-engineer:
+    context:
+      - .roo/context/fastmcp-ts-testing.roo.yaml
