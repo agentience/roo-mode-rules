@@ -4,8 +4,12 @@ modes:
       - .roo/context/jira-management.roo.yaml
       - .roo/context/memory-bank-architect.yaml
       - .roo/context/release-engineering.roo.yaml
+  debug:
+    context:
+      - .roo/context/error-management.roo.yaml      
   code:
     context:
+      - .roo/context/error-management.roo.yaml
       - .roo/context/code-patterns.roo.yaml
       - .roo/context/context-maintenance.roo.yaml
       - .roo/context/jira-management.roo.yaml
@@ -29,6 +33,7 @@ modes:
       - .roo/context/workflow-orchestration.roo.yaml
   frontend-code:
     context:
+      - .roo/context/error-management.roo.yaml
       - .roo/context/cloudscape-components.roo.yaml
       - .roo/context/code-patterns.roo.yaml
       - .roo/context/jira-management.roo.yaml

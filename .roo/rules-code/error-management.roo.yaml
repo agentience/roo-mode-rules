@@ -1,0 +1,185 @@
+# Debug Mode Error Management Configuration
+
+title: "Debug Mode Error Management"
+description: "Guidelines for error checking, resolution, and documentation in debug mode"
+
+tribal_mcp_integration:
+  description: "Integration with the tribal MCP server for error checking and knowledge management"
+  
+  error_checking:
+    when_to_check:
+      - "When encountering any error or exception"
+      - "When debugging complex issues"
+      - "When troubleshooting unfamiliar code or systems"
+      - "When error messages are unclear or misleading"
+      - "Before attempting time-consuming debugging approaches"
+    
+    search_process:
+      steps:
+        - "Extract key error messages and identifiers"
+        - "Formulate search queries based on error context"
+        - "Use the tribal MCP server to search for similar errors"
+        - "Analyze returned results for relevance"
+        - "Apply found solutions if appropriate"
+      example: |
+        call_tool("tribal", "find_similar_errors", {
+            "query": "TypeError: Cannot read property 'data' of undefined in React component",
+            "max_results": 5
+        })
+    
+    search_strategies:
+      - name: "Error Type Search"
+        description: "Search by specific error type (e.g., TypeError, ImportError)"
+        example: |
+          call_tool("tribal", "search_errors", {
+              "error_type": "TypeError",
+              "language": "javascript",
+              "max_results": 5
+          })
+      
+      - name: "Context-Based Search"
+        description: "Search using contextual information about where the error occurred"
+        example: |
+          call_tool("tribal", "search_errors", {
+              "language": "python",
+              "framework": "fastapi",
+              "task_description": "Authentication middleware error",
+              "max_results": 5
+          })
+      
+      - name: "Code Snippet Search"
+        description: "Search using the problematic code snippet"
+        example: |
+          call_tool("tribal", "search_errors", {
+              "code_snippet": "const data = response.data.items.map(item => item.value);",
+              "max_results": 5
+          })
+  
+  solution_application:
+    evaluation_criteria:
+      - "Relevance to current error context"
+      - "Similarity of environment and dependencies"
+      - "Recency of the solution"
+      - "Completeness of the solution documentation"
+      - "Success rate reported for the solution"
+    
+    adaptation_guidelines:
+      - "Adapt solutions to match current codebase structure"
+      - "Update dependency versions as needed"
+      - "Test solutions in isolation when possible"
+      - "Document any modifications made to the original solution"
+      - "Verify solution doesn't introduce new issues"
+
+error_documentation:
+  description: "Process for documenting errors and their solutions"
+  
+  documentation_triggers:
+    - "After successfully resolving any error"
+    - "When discovering a new error pattern not in the knowledge base"
+    - "When finding a better solution to a known error"
+    - "When identifying common pitfalls or edge cases"
+    - "After spending significant time debugging an issue"
+  
+  documentation_process:
+    steps:
+      - "Capture complete error details including stack traces"
+      - "Document the context in which the error occurred"
+      - "Record all attempted solutions, including failed approaches"
+      - "Document the successful solution in detail"
+      - "Add appropriate tags for future searchability"
+      - "Store the knowledge in the tribal MCP server"
+    example: |
+      call_tool("tribal", "track_error", {
+          "error_type": "ReferenceError",
+          "error_message": "Cannot access 'config' before initialization",
+          "language": "javascript",
+          "framework": "react",
+          "code_snippet": "const data = config.apiEndpoint + '/users';",
+          "task_description": "Initializing API client in React component",
+          "solution_description": "Move config import before usage or use dynamic import",
+          "solution_code_fix": "import config from './config';\nconst data = config.apiEndpoint + '/users';",
+          "solution_explanation": "The error occurred because the config variable was being used before its import statement. JavaScript hoists declarations but not initializations, so the variable existed but was undefined.",
+          "solution_references": ["https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_defined"]
+      })
+  
+  failed_attempts_documentation:
+    importance: "Documenting failed approaches is crucial for preventing repeated efforts and understanding solution evolution"
+    structure:
+      - name: "Approach Description"
+        description: "Brief description of the attempted solution"
+      - name: "Implementation Details"
+        description: "How the approach was implemented"
+      - name: "Failure Symptoms"
+        description: "How the failure manifested (new errors, unexpected behavior)"
+      - name: "Failure Analysis"
+        description: "Why the approach failed"
+      - name: "Lessons Learned"
+        description: "Insights gained from the failed attempt"
+    example: |
+      "Failed Attempts:
+      1. Attempted to fix by wrapping in try/catch:
+         - Implementation: Added try/catch block around the API call
+         - Failure: Error was suppressed but component still didn't render correctly
+         - Analysis: The try/catch only handled the symptom, not the root cause
+         - Lesson: Error handling should address root causes, not just suppress errors
+      
+      2. Attempted to use optional chaining:
+         - Implementation: Changed to response?.data?.items?.map()
+         - Failure: Still failed when response was undefined
+         - Analysis: Optional chaining helps with nested properties but not with undefined base objects
+         - Lesson: Need to verify the base object exists before attempting to access properties"
+
+debug_workflow_integration:
+  description: "Integration of error checking and documentation into the debug workflow"
+  
+  initial_error_assessment:
+    steps:
+      - "Capture complete error information (message, stack trace, context)"
+      - "Check tribal knowledge base for similar errors"
+      - "Assess error severity and impact"
+      - "Determine if quick fix is available from knowledge base"
+      - "Plan debugging approach based on findings"
+  
+  during_debugging:
+    knowledge_application:
+      - "Apply solutions from knowledge base with appropriate adaptations"
+      - "Document new observations and findings"
+      - "Update search queries based on new information"
+      - "Track attempted solutions and their outcomes"
+    
+    incremental_documentation:
+      - "Document partial solutions and insights as they emerge"
+      - "Record unexpected behaviors or side effects"
+      - "Note any workarounds discovered during debugging"
+      - "Document dependencies and environment factors that affect the issue"
+  
+  post_resolution:
+    knowledge_capture:
+      - "Document the complete solution path"
+      - "Include all relevant code changes"
+      - "Explain the root cause analysis"
+      - "Record performance implications if any"
+      - "Document any remaining limitations or edge cases"
+    
+    knowledge_sharing:
+      - "Tag team members who might benefit from the knowledge"
+      - "Include the solution in relevant documentation"
+      - "Consider creating educational content for common issues"
+      - "Update existing knowledge if better solutions are found"
+
+automatic_triggers:
+  description: "Automatic triggers for tribal knowledge integration in debug mode"
+  
+  error_search_triggers:
+    - "When an exception is caught during execution"
+    - "When a test failure occurs"
+    - "When a build or compilation error is encountered"
+    - "When a runtime error appears in logs"
+    - "When performance degrades unexpectedly"
+  
+  documentation_triggers:
+    - "After resolving an error that took more than 30 minutes to debug"
+    - "When fixing an error that was reported by multiple team members"
+    - "When resolving an error in core functionality"
+    - "When fixing an error related to third-party integrations"
+    - "When resolving an error that could recur in different contexts"
