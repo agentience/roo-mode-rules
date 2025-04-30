@@ -90,3 +90,58 @@ issue_hierarchy:
         priority: "Medium"
         customFields:
           epic-link: "{project-key}-8"
+
+project_key_configuration:
+  description: "Configuration for identifying and using the project's Jira key"
+  
+  key_location:
+    - name: "Environment File"
+      path: ".env"
+      variable: "JIRA_PROJECT_KEY"
+      description: "Project key stored as an environment variable in the project root"
+      example: "JIRA_PROJECT_KEY=PROJ"
+    
+    - name: "Jira Configuration File"
+      path: ".jira"
+      variable: "JIRA_PROJECT_KEY"
+      description: "Project key stored in a dedicated Jira configuration file"
+      example: "JIRA_PROJECT_KEY=PROJ"
+  
+  key_detection:
+    steps:
+      - "Check for .env file in project root and look for JIRA_PROJECT_KEY variable"
+      - "If not found, check for .jira file in project root and look for JIRA_PROJECT_KEY variable"
+      - "If still not found, prompt user to provide the project key"
+    example: |
+      # Example code to detect project key
+      project_key = None
+      
+      # Check .env file
+      if os.path.exists('.env'):
+          with open('.env', 'r') as f:
+              for line in f:
+                  if line.startswith('JIRA_PROJECT_KEY='):
+                      project_key = line.split('=')[1].strip()
+                      break
+      
+      # Check .jira file if not found in .env
+      if project_key is None and os.path.exists('.jira'):
+          with open('.jira', 'r') as f:
+              for line in f:
+                  if line.startswith('JIRA_PROJECT_KEY='):
+                      project_key = line.split('=')[1].strip()
+                      break
+  
+  key_usage:
+    guidelines:
+      - "Always use the detected project key when creating or updating Jira issues"
+      - "Replace {project-key} placeholder in examples with the actual project key"
+      - "Include the project key in branch names according to branch naming conventions"
+      - "Use the project key when referencing issues in commit messages and PR descriptions"
+    example:
+      tool: "jira-server"
+      action: "create_issue"
+      parameters:
+        projectKey: "${JIRA_PROJECT_KEY}"
+        summary: "Implement feature X"
+        issueType: "Story"
