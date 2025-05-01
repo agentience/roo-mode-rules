@@ -191,3 +191,50 @@ error_management:
       - "Reference the tribal knowledge base in code reviews when relevant"
       - "Periodically review and update existing error documentation"
       - "Use the knowledge base during onboarding of new team members"
+
+branch_management_procedures:
+  description: "Standard procedures for branch management throughout the development lifecycle"
+  
+  finalize_branch_procedure:
+    description: "Standard procedure to follow when finalizing a feature branch"
+    steps:
+      - name: "Commit Changes"
+        description: "Iteratively commit changes with detailed, descriptive messages. Group related changes into separate commits (distinct subfeatures)."
+        command: "git add [files] && git commit -m \"descriptive message\""
+      
+      - name: "Check Status"
+        description: "Continue committing until git status reports 'nothing to commit, working tree clean'."
+        command: "git status"
+      
+      - name: "Pull Origin"
+        description: "Pull from the origin branch (e.g., main, develop - the branch the feature branch will be merged into) to ensure it's up-to-date before merging."
+        command: "git checkout [origin-branch] && git pull && git checkout [feature-branch]"
+      
+      - name: "Merge Branch"
+        description: "Merge the current feature branch into its origin branch."
+        command: "git checkout [origin-branch] && git merge [feature-branch]"
+      
+      - name: "Resolve Conflicts"
+        description: "Handle any merge conflicts that arise during the merge process."
+        command: "# Manually resolve conflicts in affected files, then: git add [resolved-files] && git commit -m \"Resolve merge conflicts\""
+      
+      - name: "Delete Branch"
+        description: "After a successful merge, delete the local feature branch."
+        command: "git branch -d [feature-branch]"
+      
+      - name: "Lint Code"
+        description: "Run the project's configured linter to check code style and quality."
+        command: "npm run lint # or appropriate linting command for the project"
+      
+      - name: "Ask Next Steps"
+        description: "Use the ask_followup_question tool to ask the user about next steps."
+        implementation: |
+          Use the `ask_followup_question` tool with the following parameters:
+          
+          Question: "What would you like to do next?"
+          
+          Suggested answers:
+          1. "Run all tests"
+          2. "Build the project and resolve any build issues."
+          3. "Commit the changes and push"
+          4. "Build the project, run all tests and address any issues, commit the changes, and push."

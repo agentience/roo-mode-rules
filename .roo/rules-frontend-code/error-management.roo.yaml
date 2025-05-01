@@ -178,7 +178,7 @@ automatic_triggers:
     - "When performance degrades unexpectedly"
   
   documentation_triggers:
-    - "After resolving an error that took more than 30 minutes to debug"
+    - "After resolving an error that took more than 10 minutes to debug"
     - "When fixing an error that was reported by multiple team members"
     - "When resolving an error in core functionality"
     - "When fixing an error related to third-party integrations"
