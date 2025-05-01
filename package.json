@@ -6,11 +6,14 @@
   "scripts": {
     "copy-context": "node scripts/copy-context-files.js",
     "copy-roo": "node scripts/copy_roo.js \"$@\"",
-    "test-mcp-relevance": "node scripts/test-mcp-relevance.js"
+    "test-mcp-relevance": "node scripts/test-mcp-relevance.js",
+    "test-copy-roo": "node scripts/test_copy_roo.js",
+    "update-copy-history": "node scripts/update_copy_history.js"
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
-    "mkdirp": "^3.0.1"
+    "mkdirp": "^3.0.1",
+    "rimraf": "^5.0.5"
   },
   "license": "Apache-2.0",
   "repository": {

@@ -11,6 +11,7 @@ This file tracks the project's progress using a task list format.
 * [2025-04-28 16:08:20] - Updated project license from MIT to Apache License 2.0 to comply with the upstream repository (roo-code-memory-bank).
 * [2025-04-28 16:40:00] - Enhanced orchestrator mode task delegation with MCP server relevance determination capabilities.
 * [2025-04-28 17:27:50] - Created new frontend-code mode with specialized rules for React, TypeScript, and Cloudscape development.
+* [2025-05-01 12:22:52] - Updated `copy_history.json` structure to store only one entry per target directory, keyed by the directory path. Created migration script and modified the copy script to work with the new structure.
 
 ## Current Tasks
 

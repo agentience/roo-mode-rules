@@ -70,3 +70,25 @@ This file records architectural and implementation decisions using a list format
   4. Updated mode-capabilities.roo.yaml to define the specialized capabilities of the frontend-code mode
   5. Updated task-delegation-patterns.roo.yaml with examples of delegating tasks to the frontend-code mode
   6. Made the mode accessible to code, architect, and orchestrator modes for delegation
+
+* [2025-05-01 12:22:52] - Updated the structure of `copy_history.json` to store only one entry per target directory.
+
+## Rationale
+
+* [2025-05-01 12:22:52] - The previous structure stored a new entry for each copy operation, leading to duplicate entries for the same target directory. This approach was inefficient and could lead to performance issues as the history grew. The new structure is more efficient and easier to maintain, as it only stores the most recent copy operation for each target directory, using the target directory path as the key.
+
+## Implementation Details
+
+* [2025-05-01 12:22:52] - Implemented the following changes:
+  1. Created `scripts/update_copy_history.js` to migrate data from `.copy-history.yaml` to the new structure:
+     - Reads existing `.copy-history.yaml` file
+     - Converts the data to the new object-based format
+     - Uses the target directory as the key and stores only the latest timestamp
+     - Writes the converted data to `copy_history.json`
+  2. Modified `scripts/copy_roo.js` to work with the new structure:
+     - Updated `readCopyHistoryJson()` to return an object instead of an array
+     - Updated `addToCopyHistoryJson()` to store only one entry per target directory
+     - Updated the playback mode section to work with the new structure
+  3. Added a new npm script `update-copy-history` to package.json to run the migration
+  4. Ensured backward compatibility with existing `.copy-history.yaml` file
+  5. Improved error handling and logging for better debugging

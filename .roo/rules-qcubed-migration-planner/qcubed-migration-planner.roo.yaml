@@ -1,0 +1,76 @@
+rules:
+  documentation_access:
+    description: "Rules for accessing QCubed documentation via qcubed-docs-mcp for analysis"
+
+    wiki_search:
+      - name: "Search Wiki for Analysis"
+        description: "Search the QCubed wiki for documentation relevant to analyzing specific QCubed components or concepts found in the target application."
+        example: |
+          // When analyzing a specific QControl usage, search the wiki
+          const results = await call_tool("qcubed-docs-mcp", "searchWiki", {
+            query: "How does QDataGrid handle sorting?",
+            limit: 3
+          });
+
+          // Use results to understand the control's behavior
+          console.log("Relevant info for QDataGrid sorting:");
+          for (const chunk of results.chunks) {
+            console.log(`From ${chunk.documentTitle}: ${chunk.content}`);
+            console.log("---");
+          }
+
+    document_retrieval:
+      - name: "Get Specific Document for Deep Dive"
+        description: "Retrieve the full content of a specific wiki document identified during analysis for in-depth understanding."
+        example: |
+          // After identifying QForm lifecycle as crucial, retrieve its document
+          const document = await call_tool("qcubed-docs-mcp", "getWikiDocument", {
+            id: "QForm" // Assuming 'QForm' is the document ID/title
+          });
+
+          // Analyze the full document content
+          console.log(`# Analyzing: ${document.title}`);
+          console.log(document.content);
+
+    document_listing:
+      - name: "List Documents for Overview"
+        description: "List available wiki documents to get an overview of available QCubed documentation topics during initial analysis."
+        example: |
+          // Get an overview of available documentation
+          const documents = await call_tool("qcubed-docs-mcp", "listWikiDocuments", {});
+
+          // Review the list for relevant topics
+          console.log("Available QCubed Wiki Documents for review:");
+          for (const doc of documents) {
+            console.log(`- ${doc.title}: ${doc.summary}`);
+          }
+
+  migration_planning:
+    description: "Rules specific to the migration planning process"
+
+    application_analysis:
+      - name: "Analyze QCubed Structure"
+        description: "Use file reading and analysis tools to examine the QCubed application's structure (QForms, QControls, AJAX actions)."
+        example: |
+          // Example thought process, actual tools would vary
+          thinking: "Need to understand the structure of MyForm.php"
+          // Use read_file or other analysis tools
+
+    component_mapping:
+      - name: "Map QCubed to React Components"
+        description: "Identify reusable QCubed UI elements/logic and propose corresponding React component structures."
+        example: |
+          thinking: "The QDataGrid in UserListForm could be mapped to a React Table component using react-table library."
+
+    api_strategy_definition:
+      - name: "Define API Strategy"
+        description: "Propose a strategy (e.g., REST, GraphQL) for the new React frontend to interact with the backend."
+        example: |
+          thinking: "Given the existing PHP backend, a REST API layer seems most feasible initially."
+
+    plan_documentation:
+      - name: "Document Migration Plan"
+        description: "Create a clear, actionable migration plan document based on the analysis."
+        example: |
+          thinking: "Start drafting the migration plan in migration_plan.md"
+          // Use write_to_file or apply_diff to create/update the plan

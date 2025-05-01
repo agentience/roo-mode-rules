@@ -16,8 +16,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Copy history file
+# Copy history files
 .copy-history.yaml
+copy_history.json
 
 # Build directories
 dist/

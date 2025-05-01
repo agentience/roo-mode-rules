@@ -1,0 +1,9 @@
+# Defines the default set of modes copied by scripts/copy_roo.js
+default_modes:
+  - documentation
+  - frontend-code
+  - release-engineer
+  - debug
+  - code
+  - orchestrator
+  - release-engineer

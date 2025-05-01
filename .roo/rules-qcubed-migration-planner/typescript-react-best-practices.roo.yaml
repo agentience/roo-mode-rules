@@ -1,0 +1,186 @@
+# TypeScript React Best Practices Configuration
+
+title: "TypeScript React Best Practices"
+description: "Best practices for developing TypeScript-based projects using React JS"
+
+typescript_react_best_practices:
+  description: "Comprehensive best practices for TypeScript and React development"
+  
+  type_checking:
+    - name: "Enable Strict Type Checking"
+      description: "Ensure 'strict': true is set in tsconfig.json"
+      importance: "Critical"
+    
+    - name: "Explicitly Type Props and State"
+      description: "All component props and state must have explicit type annotations using interface or type"
+      importance: "High"
+    
+    - name: "Avoid any Type"
+      description: "Do not use the any type. Use specific types or utility types (Partial, Pick, etc.) as needed"
+      importance: "High"
+    
+    - name: "Prefer Interfaces for Props"
+      description: "Use interface for defining props and state unless a type alias is required (e.g., for unions)"
+      importance: "Medium"
+    
+    - name: "Use TypeScript Utility Types"
+      description: "Leverage built-in utility types (Partial, Readonly, Pick, Record, etc.) to compose and manipulate types"
+      importance: "Medium"
+  
+  component_patterns:
+    - name: "Prefer Functional Components"
+      description: "Use functional components and React hooks instead of class components"
+      importance: "High"
+    
+    - name: "Consistent Naming Conventions"
+      description: "Use clear, descriptive, and consistent naming for components, props, and variables"
+      importance: "Medium"
+    
+    - name: "Immutability"
+      description: "Never mutate state or props directly. Use immutable patterns (e.g., spread operator, array methods)"
+      importance: "High"
+    
+    - name: "No Inline Function Definitions in JSX"
+      description: "Avoid defining functions inline within JSX to prevent unnecessary re-renders"
+      importance: "Medium"
+    
+    - name: "Use Destructuring"
+      description: "Use object and array destructuring for props and state for cleaner, more readable code"
+      importance: "Medium"
+  
+  code_quality:
+    - name: "Linting and Formatting"
+      description: "Enforce code style and quality with ESLint (with TypeScript plugins) and Prettier"
+      importance: "High"
+    
+    - name: "Automated Checks"
+      description: "Integrate automated checks for linting, formatting, spelling, and type safety in the CI/CD pipeline"
+      importance: "High"
+    
+    - name: "Testing"
+      description: "Write and maintain unit, integration, and end-to-end tests using tools like Jest, Vitest, or Playwright"
+      importance: "High"
+    
+    - name: "Typed Third-Party Libraries"
+      description: "Ensure all third-party libraries have TypeScript typings. Install @types/* packages when necessary"
+      importance: "Medium"
+    
+    - name: "Document Public APIs"
+      description: "Document the purpose and usage of all public components and exported functions"
+      importance: "Medium"
+
+react_component_structure:
+  description: "Guidelines for structuring React components"
+  
+  file_organization:
+    - name: "Component Per File"
+      description: "Each component should be in its own file, named after the component"
+      example: "Button.tsx for a Button component"
+    
+    - name: "Co-locate Related Files"
+      description: "Keep related files (component, tests, styles) together"
+      example: "Button.tsx, Button.test.tsx, Button.module.css"
+    
+    - name: "Feature-based Organization"
+      description: "Organize files by feature rather than by file type"
+      example: "features/auth/, features/dashboard/, etc."
+  
+  component_composition:
+    - name: "Single Responsibility"
+      description: "Each component should have a single responsibility"
+      example: "A Form component should handle form layout but delegate validation to a hook"
+    
+    - name: "Container/Presentational Pattern"
+      description: "Separate data fetching and state management (containers) from rendering (presentational components)"
+      example: "UserListContainer fetches data, UserList renders it"
+    
+    - name: "Custom Hooks for Logic"
+      description: "Extract complex logic into custom hooks"
+      example: "useForm, useAuth, useDataFetching"
+    
+    - name: "Composition over Inheritance"
+      description: "Use component composition instead of inheritance"
+      example: "Use children prop or render props pattern"
+
+state_management:
+  description: "Best practices for managing state in React applications"
+  
+  local_state:
+    - name: "useState for Simple State"
+      description: "Use useState for simple component-level state"
+      example: "const [isOpen, setIsOpen] = useState(false)"
+    
+    - name: "useReducer for Complex State"
+      description: "Use useReducer for complex state logic"
+      example: "const [state, dispatch] = useReducer(reducer, initialState)"
+    
+    - name: "Custom Hooks for Reusable State Logic"
+      description: "Extract reusable state logic into custom hooks"
+      example: "const { value, onChange, error } = useFormField('', validateEmail)"
+  
+  global_state:
+    - name: "Context API for Shared State"
+      description: "Use Context API for state that needs to be accessed by many components"
+      example: "ThemeContext, AuthContext, etc."
+    
+    - name: "State Management Libraries"
+      description: "Consider Redux, Zustand, or Jotai for complex global state"
+      considerations: "Evaluate based on project size, team familiarity, and requirements"
+    
+    - name: "Typed State"
+      description: "Ensure global state is properly typed"
+      example: "interface AppState { user: User; theme: Theme; }"
+
+performance_optimization:
+  description: "Techniques for optimizing React application performance"
+  
+  rendering_optimization:
+    - name: "Memoization"
+      description: "Use React.memo for expensive components that render often"
+      example: "const MemoizedComponent = React.memo(Component)"
+    
+    - name: "useMemo for Expensive Calculations"
+      description: "Use useMemo to memoize expensive calculations"
+      example: "const sortedItems = useMemo(() => sortItems(items), [items])"
+    
+    - name: "useCallback for Event Handlers"
+      description: "Use useCallback for event handlers passed to child components"
+      example: "const handleClick = useCallback(() => {...}, [dependency])"
+  
+  code_splitting:
+    - name: "Dynamic Imports"
+      description: "Use dynamic imports to split code into smaller chunks"
+      example: "const DynamicComponent = React.lazy(() => import('./DynamicComponent'))"
+    
+    - name: "Route-based Code Splitting"
+      description: "Split code based on routes"
+      example: "Use React Router with React.lazy"
+    
+    - name: "Suspense for Loading States"
+      description: "Use Suspense to show loading states during code loading"
+      example: "<Suspense fallback={<Loading />}><DynamicComponent /></Suspense>"
+
+accessibility:
+  description: "Guidelines for building accessible React applications"
+  
+  semantic_html:
+    - name: "Use Semantic HTML Elements"
+      description: "Use the appropriate HTML elements for their intended purpose"
+      example: "Use <button> for buttons, <a> for links, etc."
+    
+    - name: "ARIA Attributes"
+      description: "Use ARIA attributes when semantic HTML is not sufficient"
+      example: "aria-label, aria-describedby, etc."
+    
+    - name: "Keyboard Navigation"
+      description: "Ensure all interactive elements are keyboard accessible"
+      example: "Handle key events, use tabIndex appropriately"
+  
+  testing_accessibility:
+    - name: "Automated Accessibility Testing"
+      description: "Use tools like axe-core, jest-axe, or Lighthouse for automated accessibility testing"
+      example: "Integration with CI/CD pipeline"
+    
+    - name: "Manual Testing"
+      description: "Perform manual testing with screen readers and keyboard navigation"
+      example: "Use VoiceOver, NVDA, or JAWS"
