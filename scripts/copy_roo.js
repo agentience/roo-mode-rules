@@ -388,7 +388,7 @@ function modifyContextYamlFiles(tempDir, additionalModes) {
             additionalModes.forEach(mode => {
               if (!existingModes.has(mode)) {
                 data.example_delegations.push({
-                  name: `Boomerang to ${mode} Mode`,
+                  name: `Orchestrator to ${mode} Mode`,
                   example: `<new_task>
 <mode>${mode}</mode>
 <message>

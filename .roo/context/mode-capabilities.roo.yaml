@@ -104,7 +104,7 @@ modes:
       - "Creating release documentation"
       - "Implementing deployment automation"
   
-  - name: "Boomerang Mode"
+  - name: "Orchestrator Mode"
     specializations:
       - "Workflow orchestration"
       - "Task delegation and coordination"

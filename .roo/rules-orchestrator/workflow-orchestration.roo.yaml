@@ -153,7 +153,7 @@ complex_task_orchestration:
    streams:
      - name: "Stream Coordination"
        steps:
-         - mode: "Boomerang Mode" # Assuming Boomerang Mode is Orchestrator
+         - mode: "Orchestrator Mode" # Assuming Orchestrator Mode is Orchestrator
            task: "Coordinate overall progress"
          - mode: "Architect Mode"
            task: "Ensure architectural consistency"

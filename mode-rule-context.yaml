@@ -6,6 +6,7 @@ modes:
       - .roo/context/release-engineering.roo.yaml
   debug:
     context:
+      - .roo/context/code-patterns.roo.yaml
       - .roo/context/error-management.roo.yaml      
   code:
     context:

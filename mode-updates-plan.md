@@ -15,7 +15,7 @@ After reviewing the project files, I've identified that Documentation Mode is mi
 2. Code Mode
 3. Debug Mode
 4. Ask Mode
-5. Orchestrator Mode (referred to as "Boomerang Mode" in some files)
+5. Orchestrator Mode (referred to as "Orchestrator Mode" in some files)
 
 ## Proposed Updates
 

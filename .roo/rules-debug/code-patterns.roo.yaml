@@ -1,0 +1,240 @@
+# Code Patterns Configuration
+
+title: "Code Patterns"
+description: "Coding standards, reusable patterns, implementation examples, and architecture-code links for the project"
+
+coding_standards:
+  description: "Coding standards and best practices to be followed across the codebase"
+  standards:
+    - "TypeScript coding standards"
+    - "React component structure"
+    - "AWS Amplify integration patterns"
+    - "Error handling conventions"
+    - "Logging standards"
+    - "Documentation requirements"
+
+reusable_patterns:
+  description: "Reusable code patterns that should be leveraged throughout the application"
+  patterns:
+    - "Authentication and authorization patterns"
+    - "Data fetching and state management"
+    - "Form handling and validation"
+    - "Error boundary implementation"
+    - "Component composition patterns"
+    - "Custom hooks for common functionality"
+
+implementation_examples:
+  description: "Concrete examples of implementing the defined patterns in the codebase"
+  examples:
+    - "Authentication flow implementation"
+    - "Data model integration with UI components"
+    - "File upload and management"
+    - "User profile management"
+    - "Dashboard data visualization"
+    - "Navigation and routing implementation"
+
+architecture_code_links:
+  description: "Maps architectural decisions to specific code implementations, helping developers understand how high-level design translates to code"
+  links:
+    - "Service layer implementation"
+    - "Component hierarchy and organization"
+    - "State management approach"
+    - "API integration strategy"
+    - "Error handling and recovery mechanisms"
+    - "Performance optimization techniques"
+
+post_merge_practices:
+  description: "Required practices to follow after merging branches to maintain code quality and prevent integration issues"
+  
+  workspace_problem_resolution:
+    - name: "Immediate Resolution Requirement"
+      description: "All TypeScript errors, ESLint warnings, and other workspace problems must be fixed immediately after merging branches"
+    - name: "Zero-Tolerance Policy"
+      description: "The codebase should maintain zero TypeScript errors and ESLint warnings at all times"
+    - name: "Shared Responsibility"
+      description: "The developer who performed the merge is responsible for fixing any resulting workspace problems"
+    - name: "Documentation"
+      description: "If fixing a complex issue, document the solution using the Tribal Knowledge system"
+  
+  post_merge_testing:
+    - name: "Test Execution Requirement"
+      description: "Run all tests after merging branches to ensure no regressions"
+    - name: "Test Coverage Verification"
+      description: "Ensure test coverage hasn't decreased after the merge"
+    - name: "Failed Tests"
+      description: "Any failed tests must be fixed before continuing with new development work"
+    - name: "New Tests"
+      description: "Add tests for any new functionality introduced during the merge"
+  
+  common_merge_issue_resolution:
+    - name: "Conflicting Type Definitions"
+      description: "Resolve by carefully reviewing both versions and creating a unified type that satisfies all use cases"
+    - name: "Duplicate Declarations"
+      description: "Remove duplicates while ensuring all necessary functionality is preserved"
+    - name: "Import Path Issues"
+      description: "Update import paths to reflect any file structure changes"
+    - name: "Dependency Version Conflicts"
+      description: "Resolve by updating to compatible versions and testing thoroughly"
+    - name: "Style Rule Violations"
+      description: "Fix by applying consistent styling according to project standards"
+  
+  post_merge_verification_checklist:
+    - "All TypeScript errors are resolved"
+    - "All ESLint warnings are fixed"
+    - "All tests pass successfully"
+    - "Application builds without errors"
+    - "Application runs locally without issues"
+    - "Any new functionality works as expected"
+    - "Code review comments from the PR have been addressed"
+    - "Documentation has been updated if necessary"
+    - "Complex issue resolutions have been documented in Tribal Knowledge"
+  
+  automation_recommendations:
+    - "Configure CI/CD pipeline to run type checking and linting on every PR"
+    - "Set up pre-commit hooks to prevent committing code with TypeScript errors or ESLint warnings"
+    - "Implement automated test runs after merges to detect issues early"
+    - "Create custom VS Code workspace settings to highlight TypeScript and ESLint issues prominently"
+
+mcp_server_tools:
+  pre_commit_and_license_tools:
+    repository_setup_tools:
+      - name: "check_git_repo_init"
+        description: "Detects newly initialized repositories"
+        example: "call_tool(\"practices\", \"check_git_repo_init\", { \"repo_path\": \".\" })"
+        returns: "Whether repository was recently initialized"
+        usage: "Use this to determine if a repository needs initial setup"
+    
+    pre_commit_hook_management:
+      - name: "install_pre_commit_hooks"
+        description: "Sets up pre-commit hooks"
+        example: "call_tool(\"practices\", \"install_pre_commit_hooks\", { \"repo_path\": \".\" })"
+        details: "Installs and configures pre-commit hooks"
+        usage: "Should be run for all new repositories and when updating hook configurations"
+    
+    license_header_management:
+      - name: "add_license_header"
+        description: "Adds license headers to individual files"
+        example: "call_tool(\"practices\", \"add_license_header\", { \"filename\": \"src/file.py\", \"description\": \"Brief file description\" })"
+        details: "Adds standardized license header to the file"
+        usage: "Use for new files or when updating existing files without proper headers"
+      
+      - name: "process_license_headers_batch"
+        description: "Processes multiple files"
+        example: "call_tool(\"practices\", \"process_license_headers_batch\", { \"directory\": \"src\", \"pattern\": \"*.py\", \"recursive\": true, \"check_only\": false })"
+        details: "Adds or checks headers for multiple files"
+        usage: "Use for bulk operations or during repository setup"
+    
+    when_to_use:
+      new_repository_setup:
+        - "Check if repository is newly initialized with check_git_repo_init"
+        - "Install pre-commit hooks with install_pre_commit_hooks"
+        - "Add license headers to all files with process_license_headers_batch"
+      
+      new_file_creation:
+        - "Add license header to new file with add_license_header"
+      
+      code_reviews:
+        - "Verify license headers with process_license_headers_batch using check_only: true"
+      
+      repository_maintenance:
+        - "Periodically run process_license_headers_batch to ensure all files have proper headers"
+
+error_management:
+  tribal_knowledge:
+    error_documentation_process:
+      steps:
+        - "Document the error details and solution using the store_knowledge tool"
+        - "Include relevant context, error messages, and the complete solution"
+        - "Add appropriate tags for easy retrieval"
+      example: |
+        call_tool("tribal", "store_knowledge", {
+            "title": "AWS Amplify Auth Configuration Error",
+            "problem": "Error: The 'Auth' category is not properly configured. (Error code: AUTH_CONFIGURATION_ERROR)",
+            "solution": "The issue was caused by missing userPoolId in the Amplify configuration. Fixed by adding the correct userPoolId in the auth/resource.ts file.",
+            "context": "This occurred during initial setup of the Amplify Auth module.",
+            "tags": ["aws", "amplify", "auth", "configuration", "error"]
+        })
+    
+    error_knowledge_retrieval:
+      example: |
+        call_tool("tribal", "search_knowledge", {
+            "query": "AWS Amplify Auth Configuration Error",
+            "tags": ["amplify", "auth"]
+        })
+    
+    when_to_document_errors:
+      - "Non-trivial errors that took significant time to resolve"
+      - "Errors with misleading or unclear error messages"
+      - "Errors related to configuration or environment setup"
+      - "Errors that might be encountered by other team members"
+      - "Errors that required workarounds or special handling"
+    
+    required_information:
+      - name: "Title"
+        description: "Clear, searchable title describing the error"
+      - name: "Problem"
+        description: "Detailed description of the error, including exact error messages"
+      - name: "Solution"
+        description: "Step-by-step resolution that worked"
+      - name: "Context"
+        description: "When/where the error occurred, relevant system state"
+      - name: "Tags"
+        description: "Relevant keywords for future searching"
+    
+    automatic_error_documentation_triggers:
+      - "After spending more than 30 minutes debugging an issue"
+      - "When resolving an error that was reported in a Jira ticket"
+      - "When fixing a bug that was caused by a misunderstanding or unclear documentation"
+      - "When discovering a workaround for a third-party library or service limitation"
+    
+    team_knowledge_sharing:
+      - "Reference the tribal knowledge base in code reviews when relevant"
+      - "Periodically review and update existing error documentation"
+      - "Use the knowledge base during onboarding of new team members"
+
+branch_management_procedures:
+  description: "Standard procedures for branch management throughout the development lifecycle"
+  
+  finalize_branch_procedure:
+    description: "Standard procedure to follow when finalizing a feature branch"
+    steps:
+      - name: "Commit Changes"
+        description: "Iteratively commit changes with detailed, descriptive messages. Group related changes into separate commits (distinct subfeatures)."
+        command: "git add [files] && git commit -m \"descriptive message\""
+      
+      - name: "Check Status"
+        description: "Continue committing until git status reports 'nothing to commit, working tree clean'."
+        command: "git status"
+      
+      - name: "Pull Origin"
+        description: "Pull from the origin branch (e.g., main, develop - the branch the feature branch will be merged into) to ensure it's up-to-date before merging."
+        command: "git checkout [origin-branch] && git pull && git checkout [feature-branch]"
+      
+      - name: "Merge Branch"
+        description: "Merge the current feature branch into its origin branch."
+        command: "git checkout [origin-branch] && git merge [feature-branch]"
+      
+      - name: "Resolve Conflicts"
+        description: "Handle any merge conflicts that arise during the merge process."
+        command: "# Manually resolve conflicts in affected files, then: git add [resolved-files] && git commit -m \"Resolve merge conflicts\""
+      
+      - name: "Delete Branch"
+        description: "After a successful merge, delete the local feature branch."
+        command: "git branch -d [feature-branch]"
+      
+      - name: "Lint Code"
+        description: "Run the project's configured linter to check code style and quality."
+        command: "npm run lint # or appropriate linting command for the project"
+      
+      - name: "Ask Next Steps"
+        description: "Use the ask_followup_question tool to ask the user about next steps."
+        implementation: |
+          Use the `ask_followup_question` tool with the following parameters:
+          
+          Question: "What would you like to do next?"
+          
+          Suggested answers:
+          1. "Run all tests"
+          2. "Build the project and resolve any build issues."
+          3. "Commit the changes and push"
+          4. "Build the project, run all tests and address any issues, commit the changes, and push."

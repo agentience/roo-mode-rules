@@ -73,7 +73,7 @@ example_delegations:
       </message>
       </new_task>
   
-  - name: "Boomerang to Debug Mode"
+  - name: "Orchestrator to Debug Mode"
     example: |
       <new_task>
       <mode>debug</mode>
@@ -112,7 +112,7 @@ example_delegations:
       </message>
       </new_task>
   
-  - name: "Boomerang to Release Engineer Mode"
+  - name: "Orchestrator to Release Engineer Mode"
     example: |
       <new_task>
       <mode>release-engineer</mode>
@@ -238,7 +238,7 @@ example_delegations:
       </message>
       </new_task>
 
-  - name: "Boomerang to Frontend Code Mode"
+  - name: "Orchestrator to Frontend Code Mode"
     example: |
       <new_task>
       <mode>frontend-code</mode>
